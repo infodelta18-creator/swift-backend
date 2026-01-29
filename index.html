@@ -20,6 +20,413 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Netliv</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        :root {
+            --glass-bg: rgba(20, 22, 28, 0.96);
+            --accent: #007AFF;
+            --buffer-color: rgba(255, 255, 255, 0.2);
+            --text-main: #ffffff;
+        }
+
+        body {
+            background-color: #000;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+        }
+
+        .section-header { padding: 30px 20px 10px; display: flex; align-items: center; gap: 10px; }
+        .online-dot { width: 10px; height: 10px; background: #00ff00; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,255,0,0.7); } 70% { box-shadow: 0 0 0 10px rgba(0,255,0,0); } 100% { box-shadow: 0 0 0 0 rgba(0,255,0,0); } }
+
+        .scroll-row { display: flex; overflow-x: auto; gap: 15px; padding: 0 20px 30px; scrollbar-width: none; }
+        .scroll-row::-webkit-scrollbar { display: none; }
+
+        .channel-card { flex: 0 0 180px; cursor: pointer; transition: transform 0.2s; }
+        .channel-card:active { transform: scale(0.95); }
+        .img-box { width: 100%; height: 110px; background: #1a1a1a; border-radius: 16px; border: 1px solid #333; overflow: hidden; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .card-title { margin-top: 10px; font-size: 14px; text-align: center; font-weight: 500; }
+
+        .netlivy-overlay {
+            position: fixed; inset: 0; background: #000;
+            z-index: 9999; display: none; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+        .netlivy-overlay.active { display: flex; }
+
+        .player-container { 
+            position: relative; width: 95%; max-width: 800px; 
+            display: flex; flex-direction: column; 
+            
+        }
+
+        .video-box { 
+            position: relative; 
+            width: 100%; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            background: #000; 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+              }
+
+        /* --- UI HIDING SYSTEM --- */
+        .top-info, .controls-panel { 
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+            opacity: 1;
+            visibility: visible;
+            z-index: 25;
+            
+        }
+
+        .ui-hidden { 
+            opacity: 0 !important; 
+            visibility: hidden !important; 
+            pointer-events: none;
+        }
+
+        .top-info { 
+            font-weight: 600; 
+            font-size: 20px; 
+            color: #fff;
+             display:fixed;
+            padding: 10px 5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            width: 100%;
+           margin-top: -350px;
+         }
+
+        video { width: 100%; height: auto; aspect-ratio: 16/9; cursor: pointer; display: block; }
+
+        .loader-wrapper {
+            position: absolute; inset: 0; display: none;
+            justify-content: center; align-items: center; 
+            background: rgba(0,0,0,0.8); z-index: 15;
+            flex-direction: column; gap: 15px;
+        }
+        .loader-wrapper.active { display: flex; }
+        
+        .spinner { 
+            width: 50px; height: 50px; 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-top: 2.5px solid #fff; 
+            border-radius: 50%; 
+            animation: spin .9s linear infinite; 
+            box-shadow: 0 0 15px rgba(0, 122, 255, 0.3);
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .gesture-hint {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            padding: 15px 25px; border-radius: 30px; background: rgba(0,0,0,0.6);
+            font-size: 18px; display: none; pointer-events: none; z-index: 20; color: #fff;
+        }
+
+        .controls-panel {
+            background: var(--glass-bg); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px;
+            display: flex; align-items: center; height: 49.5px; padding: 0 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            background: none; border: none; color: rgba(255, 255, 255, 0.9);
+            flex: 1; height: 100%; cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: 0.2s ease; font-size: 20px;
+        }
+        .btn:active { transform: scale(0.8); color: #fff; }
+        .v-divider { width: 1px; height: 26px; background: rgba(255, 255, 255, 0.1); }
+
+        .settings-menu {
+            position: absolute; bottom: 85px; right: 10px;
+            background: var(--glass-bg); backdrop-filter: blur(35px);
+            border-radius: 22px; padding: 10px; width: 200px;
+            display: none; flex-direction: column; gap: 5px;
+            border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+            z-index: 100;
+        }
+        .settings-menu.active { display: flex; animation: slideIn 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+
+        .menu-btn {
+            background: none; border: none; color: #fff; padding: 12px 15px;
+            text-align: left; cursor: pointer; border-radius: 14px; font-size: 14px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .menu-btn.active { color: var(--accent); font-weight: 700; }
+        .badge-pro { background: var(--accent); font-size: 10px; padding: 2px 6px; border-radius: 5px; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="section-header">
+        <h2>Jonli Efir</h2>
+        <span class="online-dot"></span>
+    </div>
+
+    <div class="scroll-row">
+        <div class="channel-card" onclick="runProPlayer('https://fl.biztv.media/biz_tv_720_uni8jhub4h8fub4idejswh8dh3j94finbu4nidj39inwsj92in3d/index.m3u8', 'Biz TV')">
+            <div class="img-box"><img src="src/biz.jpg"></div>
+            <div class="card-title">Biz TV</div>
+        </div>
+            
+        <div class="channel-card" onclick="runProPlayer('https://stream8.cinerama.uz/1011/tracks-v1a1/playlist.m3u8', 'O\'zbekiston')">
+            <div class="img-box"><img src="src/uzb.jpg"></div>
+            <div class="card-title">O'zbekiston 24</div>
+        </div>
+        <div class="channel-card" onclick="runProPlayer('https://stream8.cinerama.uz/1016/tracks-v1a1/mono.m3u8', 'Zo\'rTV')">
+            <div class="img-box"><img src="src/zor.jpg"></div>
+            <div class="card-title">ZO'RTV</div>
+        </div>
+                      
+        <div class="channel-card" onclick="runProPlayer('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', 'Milliy')">
+            <div class="img-box"><img src="src/milliy.jpg"></div>
+            <div class="card-title">Milliy TV</div>
+        </div>
+        <div class="channel-card" onclick="runProPlayer('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', 'Milliy')">
+            <div class="img-box"><img src="src/milliy.jpg"></div>
+            <div class="card-title">Milliy TV</div>
+        </div>
+        <div class="channel-card" onclick="runProPlayer('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', 'Milliy TV')">
+            <div class="img-box"><img src="src/milliy.jpg"></div>
+            <div class="card-title">Milliy TV</div>
+        </div>
+    </div>
+
+    <div class="netlivy-overlay" id="pOverlay">
+        
+        <div class="player-container" id="mainContainer">
+               <button class="btn" onclick="closeProPlayer()"><i style="margin-left: -193px;margin-top: -620px;z-index: 999999;" class="fa-solid fa-angle-down"></i></button>
+           
+            <div class="top-info" id="pTitle"></div>
+            
+            <div class="video-box" id="vBox">
+                <div id="gHint" class="gesture-hint"></div>
+                <div class="loader-wrapper" id="vLoader">
+                    <div class="spinner"></div>
+                </div>
+                <video id="vElement" playsinline></video>
+            </div>
+
+            <div class="settings-menu" id="sMenu">
+                <div style="font-size: 11px; opacity: 0.5; padding: 5px 15px; letter-spacing: 1px;">Settings</div>
+                <button class="menu-btn active" id="autoBtn" onclick="changeHlsLevel(-1, this)">Auto <span class="badge-pro">AD</span></button>
+                <div id="qualityList"></div>
+                <div style="height: 1px; background: rgba(255,255,255,0.1); margin: 5px 10px;"></div>
+                <button class="menu-btn" onclick="toggleDataSaver(this)">Trafik tejash: <span id="dsStatus">OFF</span></button>
+            </div>
+
+            <div class="controls-panel" id="cPanel">
+                <button class="btn" onclick="closeProPlayer()"><i class="fa-solid fa-angle-left"></i></button>
+                <div class="v-divider"></div>
+                <button class="btn" onclick="seekTime(-10)"><i class="fa-solid fa-rotate-left"></i></button>
+                <button class="btn" onclick="togglePlay()"><i class="fa-solid fa-play" id="playIcon"></i></button>
+                <button class="btn" onclick="seekTime(10)"><i class="fa-solid fa-rotate-right"></i></button>
+                <button class="btn" onclick="toggleFullscreen()"><i class="fa-solid fa-expand" id="fullIcon"></i></button>
+                <div class="v-divider"></div>
+                <button class="btn" onclick="togglePiP()"><i class="fa-solid fa-clone"></i></button>
+                <button class="btn" onclick="toggleMute()"><i class="fa-solid fa-volume-low" id="volIcon"></i></button>
+                <button class="btn" onclick="showSettings(event)"><i class="fa-solid fa-gear"></i></button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const video = document.getElementById('vElement');
+    const overlay = document.getElementById('pOverlay');
+    const mainContainer = document.getElementById('mainContainer');
+    const playIcon = document.getElementById('playIcon');
+    const volIcon = document.getElementById('volIcon');
+    const loader = document.getElementById('vLoader');
+    const sMenu = document.getElementById('sMenu');
+    const gHint = document.getElementById('gHint');
+    const cPanel = document.getElementById('cPanel');
+    const pTitle = document.getElementById('pTitle');
+    const vBox = document.getElementById('vBox');
+    
+    let hls = new Hls();
+    let dataSaver = false;
+    let uiTimer;
+
+    // --- SMART UI HIDING SYSTEM ---
+    function showUI() {
+        pTitle.classList.remove('ui-hidden');
+        cPanel.classList.remove('ui-hidden');
+        
+        clearTimeout(uiTimer);
+        
+        // Agar video ketsa va sozlamalar yopiq bo'lsa, 10 soniyada yashirilsin
+        uiTimer = setTimeout(() => {
+            if (!video.paused && !sMenu.classList.contains('active')) {
+                hideUI();
+            }
+        }, 8000);
+    }
+
+    function hideUI() {
+     
+        cPanel.classList.add('ui-hidden');
+        sMenu.classList.remove('active');
+    }
+
+    // Harakat bo'lganda UI ko'rsatish
+    [video, vBox, cPanel].forEach(el => {
+        el.addEventListener('mousemove', showUI);
+        el.addEventListener('touchstart', showUI);
+        el.addEventListener('click', showUI);
+    });
+
+    function runProPlayer(url, title) {
+        document.getElementById('pTitle').innerText = title;
+        overlay.classList.add('active');
+        loader.classList.add('active');
+        showUI(); // Player ochilganda UI ko'rsatilsin
+
+        if (Hls.isSupported()) {
+            hls.destroy();
+            hls = new Hls({ 
+                capLevelToPlayerSize: true,
+                lowLatencyMode: true,
+                maxBufferLength: 10
+            });
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, (e, data) => {
+                buildQualityMenu(data.levels);
+                video.play();
+                playIcon.className = 'fa-solid fa-pause';
+            });
+            hls.on(Hls.Events.FRAG_BUFFERING, () => loader.classList.add('active'));
+            hls.on(Hls.Events.FRAG_BUFFERED, () => loader.classList.remove('active'));
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            video.play();
+        }
+    }
+
+    video.addEventListener('playing', () => loader.classList.remove('active'));
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+            if (mainContainer.requestFullscreen) mainContainer.requestFullscreen();
+            else if (mainContainer.webkitRequestFullscreen) mainContainer.webkitRequestFullscreen();
+            else if (mainContainer.mozRequestFullScreen) mainContainer.mozRequestFullScreen();
+            else if (mainContainer.msRequestFullscreen) mainContainer.msRequestFullscreen();
+            
+            document.getElementById('fullIcon').className = 'fa-solid fa-compress';
+            if(screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(() => {});
+            }
+        } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+            else if (document.mozCancelFullScreen) document.mozCancelFullScreen();
+            else if (document.msExitFullscreen) document.msExitFullscreen();
+            
+            document.getElementById('fullIcon').className = 'fa-solid fa-expand';
+        }
+    }
+
+    function buildQualityMenu(levels) {
+        const list = document.getElementById('qualityList');
+        list.innerHTML = '';
+        levels.sort((a, b) => b.height - a.height).forEach((level, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'menu-btn';
+            btn.innerHTML = `${level.height}p`;
+            btn.onclick = () => changeHlsLevel(index, btn);
+            list.appendChild(btn);
+        });
+    }
+
+    function changeHlsLevel(idx, btn) {
+        hls.currentLevel = idx;
+        document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        sMenu.classList.remove('active');
+        flashHint(idx === -1 ? "Auto Quality" : btn.innerText);
+    }
+
+    let tapTime = 0;
+    video.addEventListener('touchend', (e) => {
+        let now = Date.now();
+        if (now - tapTime < 300) {
+            const rect = video.getBoundingClientRect();
+            const x = e.changedTouches[0].clientX - rect.left;
+            if (x > rect.width / 2) { seekTime(10); flashHint("10s >>"); }
+            else { seekTime(-10); flashHint("<< 10s"); }
+        }
+        tapTime = now;
+    });
+
+    async function togglePiP() {
+        try {
+            if (video !== document.pictureInPictureElement) await video.requestPictureInPicture();
+            else await document.exitPictureInPicture();
+        } catch (e) { flashHint("PiP not supported"); }
+    }
+
+    function toggleDataSaver(btn) {
+        dataSaver = !dataSaver;
+        if (dataSaver) {
+            hls.currentLevel = 0; 
+            document.getElementById('dsStatus').innerText = "ON";
+            flashHint("Data Saver: ON");
+        } else {
+            hls.currentLevel = -1;
+            document.getElementById('dsStatus').innerText = "OFF";
+        }
+        sMenu.classList.remove('active');
+    }
+
+    function togglePlay() {
+        if (video.paused) { video.play(); playIcon.className = 'fa-solid fa-pause'; }
+        else { video.pause(); playIcon.className = 'fa-solid fa-play'; }
+        showUI();
+    }
+
+    function toggleMute() {
+        video.muted = !video.muted;
+        volIcon.className = video.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low';
+    }
+
+    function seekTime(s) { video.currentTime += s; showUI(); }
+
+    function flashHint(txt) {
+        gHint.innerText = txt; gHint.style.display = 'block';
+        setTimeout(() => gHint.style.display = 'none', 800);
+    }
+
+    function showSettings(e) { 
+        e.stopPropagation(); 
+        sMenu.classList.toggle('active'); 
+        showUI();
+    }
+    
+    function closeProPlayer() { 
+        overlay.classList.remove('active'); 
+        video.pause(); 
+        if(hls) hls.detachMedia(); 
+        clearTimeout(uiTimer);
+    }
+
+    window.onclick = () => sMenu.classList.remove('active');
+ 
+    </script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Netlivy One UI - Ultra Edition</title>
 
