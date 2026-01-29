@@ -43,7 +43,7 @@ const HeroBanner = () => {
           <span className='subtitle'>The ultimate destination for movie lovers. Experience the magic with us explore  Amediateka,Онлайн ТВ и Кино </span>
 
           <div className='inputbox'>
-            <input type='text' placeholder='Search our shows'
+            <input type='text' placeholder='Поиск а медиатека и cериал'
                   onChange={(e)=>{setQuery(e.target.value)}}
                   onKeyDown={searchQuery}></input>
                   <button onClick={searchQuery}> Поиск</button>
