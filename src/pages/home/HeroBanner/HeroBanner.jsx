@@ -39,11 +39,11 @@ const HeroBanner = () => {
       <div className='wrapper'>
         <div className='heroBannerContent'>
 
-          <span className='title'>ДОБРО ПОЖАЛОВАТЬ</span>
-          <span className='subtitle'>The ultimate destination for movie lovers. Experience the magic with us explore  Amediateka,Онлайн ТВ и кино</span>
+          <span className='title'>ДОБРЫЙ ВЕЧЕР</span>
+          <span className='subtitle'>The ultimate destination for movie lovers. Experience the magic with us explore  Amediateka,Онлайн ТВ и Кино </span>
 
           <div className='inputbox'>
-            <input type='text' placeholder='Поиск а медиатека и телепередачи'
+            <input type='text' placeholder='Search our shows'
                   onChange={(e)=>{setQuery(e.target.value)}}
                   onKeyDown={searchQuery}></input>
                   <button onClick={searchQuery}> Поиск</button>
