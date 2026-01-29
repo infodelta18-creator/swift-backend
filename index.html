@@ -1612,7 +1612,7 @@ function closePopup() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Netlivy One UI - Ultra Edition</title>
+    <title>Netlivy - Professional Media Streamer</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1620,299 +1620,428 @@ function closePopup() {
 
     <style>
         :root {
-            --netlivy-primary-samsung-blue: #0356d0;
+            --netlivy-primary-brand-blue: #0356d0;
             --netlivy-background-phantom-black: #0a0a0b;
             --netlivy-surface-widget-glass: rgba(30, 30, 33, 0.7);
-            --netlivy-border-radius-custom-card: 28px;
             --netlivy-text-color-main-white: #f5f5f7;
             --netlivy-text-color-dim-gray: #929297;
-            --netlivy-status-color-live-red: #e02424;
+            --netlivy-glass-overlay-background: rgba(20, 22, 28, 0.96);
+            --netlivy-standard-border-radius: 28px;
         }
 
         body {
-
             color: var(--netlivy-text-color-main-white);
             font-family: 'Inter', sans-serif;  
+            margin: 0; padding: 0;
+            background-color: var(--netlivy-background-phantom-black);
             overflow-x: hidden;
-                }
-
-        /* ASOSIY HEADER QISMI */
-        .netlivy-ultra-application-header-wrapper { padding: 60px 24px 30px; }
-        .netlivy-ultra-application-main-title { font-size: 34px; font-weight: 700; margin: 0; letter-spacing: -1px; }
-        .netlivy-ultra-application-sub-description { color: var(--netlivy-text-color-dim-gray); font-size: 16px; margin-top: 5px; }
-
-        /* SANA VA VAQT VIDJETI */
-        .netlivy-smart-date-display-widget-container {
-            display: inline-flex;
-            align-items: center;
-            background: var(--netlivy-surface-widget-glass);
-            backdrop-filter: blur(20px);
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin: 0 24px 20px;
-
         }
-        .netlivy-smart-date-display-widget-container i { color: var(--netlivy-primary-samsung-blue); margin-right: 8px; }
 
-        .netlivy-section-content-separator-label { padding: 0 24px; font-size: 18px; font-weight: 600; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        /* --- CHANNEL SELECTION UI --- */
+        .netlivy-section-content-separator-label { 
+            padding: 30px 24px 15px; 
+            font-size: 18px; 
+            font-weight: 600; 
+        }
 
-        /* KANALLAR RO'YXATI */
-        .netlivy-horizontal-channel-scroll-component { display: flex; overflow-x: auto; gap: 16px; padding: 0 24px 30px; scroll-behavior: smooth; }
-        .netlivy-horizontal-channel-scroll-component::-webkit-scrollbar { display: none; }
+        .netlivy-horizontal-channel-scroll-component { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 16px; 
+            padding: 0 24px 30px; 
+        }
+
+        .netlivy-horizontal-channel-scroll-component::-webkit-scrollbar { 
+            display: none; 
+        }
 
         .netlivy-individual-channel-card-element {
-            flex: 0 0 120px;
+            flex: 0 0 100px;
             background: var(--netlivy-surface-widget-glass);
-            border-radius: var(--netlivy-border-radius-custom-card);
-            padding: 20px 10px;
+            border-radius: 20px;
+            padding: 23px 10px;
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.03);
-            transition: 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid rgba(255,255,255,0.05);
             cursor: pointer;
-        }
-        .netlivy-individual-channel-card-element:active { transform: scale(0.95); }
-        .netlivy-individual-channel-card-element img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 12px; }
-        .netlivy-individual-channel-card-element span { font-size: 13px; font-weight: 500; display: block; }
-
-        /* HAFTALIK EFIRLAR (EPG) RO'YXATI */
-        .netlivy-weekly-program-guide-list-wrapper { padding: 0 4px 100px; }
-        .netlivy-epg-event-item-interactive-card {
-            background: var(--netlivy-surface-widget-glass);
-            border-radius: 24px;
-            margin-bottom: 12px;
-            padding: 0px;
-            display: flex;
-            align-items: center;
-            border: 1px solid rgba(255,255,255,0.03);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .netlivy-epg-event-item-interactive-card:active { transform: scale(0.98); background: rgba(255,255,255,0.05); }
-        .netlivy-epg-event-item-interactive-card.netlivy-is-currently-broadcasting {
-            border-left: 5px solid var(--netlivy-primary-samsung-blue);
-            background: linear-gradient(90deg, rgba(3, 86, 208, 0.15), transparent);
+            transition: transform 0.3s ease;
         }
 
-        .netlivy-epg-event-time-metadata-box { min-width: 60px; }
-        .netlivy-epg-event-start-time-text { font-weight: 700; color: var(--netlivy-primary-samsung-blue); font-size: 16px; }
-        .netlivy-epg-event-date-subtext { font-size: 10px; color: var(--netlivy-text-color-dim-gray); display: block; }
-
-        .netlivy-epg-event-main-info-container { flex-grow: 1; margin-left: 15px; }
-        .netlivy-epg-event-program-title-label { font-weight: 600; font-size: 15px; margin-bottom: 2px; display: block; }
-        .netlivy-epg-event-channel-identity-text { font-size: 12px; color: var(--netlivy-text-color-dim-gray); }
-
-        .netlivy-live-status-pulsating-indicator {
-            width: 8px; height: 8px; background: var(--netlivy-status-color-live-red);
-            border-radius: 50%; display: inline-block; margin-right: 8px;
-            box-shadow: 0 0 10px var(--netlivy-status-color-live-red);
-            animation: netlivyVisualPulseAnimation 1.5s infinite;
+        .netlivy-individual-channel-card-element:active {
+            transform: scale(0.95);
         }
-        @keyframes netlivyVisualPulseAnimation { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* FULLSCREEN VIDEO PLEYER */
+        .netlivy-individual-channel-card-element img { 
+            width: 50px; height: 50px; 
+            object-fit: contain; 
+            margin-bottom: 10px; 
+        }
+
+        .netlivy-individual-channel-card-element span { 
+            font-size: 13px; 
+            font-weight: 500; 
+            display: block; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* --- VIDEO PLAYER UI OVERLAY --- */
         .netlivy-ultra-video-player-fullscreen-overlay {
             position: fixed; inset: 0; background: #000;
-            z-index: 2000; display: none; flex-direction: column;
+            z-index: 9999; display: none; flex-direction: column;
+            justify-content: center; align-items: center;
         }
-        .netlivy-ultra-video-player-top-navigation-bar { padding: 40px 24px 20px; display: flex; justify-content: space-between; align-items: center; }
-        #netlivy-ultra-main-video-source-element { width: 97%; aspect-ratio: 20/13; background: #000; }
+
+        .netlivy-ultra-video-player-fullscreen-overlay.active { 
+            display: flex; 
+        }
+
+        .netlivy-video-player-central-container { 
+            position: relative; width: 95%; max-width: 800px; 
+            display: flex; flex-direction: column; 
+        }
+
+        /* Top Info Header */
+        .netlivy-player-header-information { 
+            font-weight: 600; 
+            font-size: 18px; 
+            color: #fff;
+            padding: 10px 5px; 
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            width: 100%; 
+            position: absolute; 
+            top: -55px;
+            left: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Video Stage Box */
+        .netlivy-video-playback-rendering-box { 
+            position: relative; 
+            width: 100%; 
+            border-radius: 5px; 
+            overflow: hidden; 
+            background: #000; 
+            box-shadow: 0 25px 60px rgba(0,0,0,0.9);
+        }
+
+        video { 
+            width: 100%; 
+            height: auto; 
+            aspect-ratio: 16/9; 
+            display: block; 
+            cursor: pointer; 
+        }
+
+        /* Loading Spinner */
+        .netlivy-video-buffering-loader-wrapper {
+            position: absolute; inset: 0; display: none;
+            justify-content: center; align-items: center; 
+            background: rgba(0,0,0,0.7); z-index: 15;
+        }
+
+        .netlivy-video-buffering-loader-wrapper.active { 
+            display: flex; 
+        }
+
+        .netlivy-loading-spinner-element { 
+            width: 45px; height: 45px; 
+            border: 2px solid rgba(255,255,255,0.1);
+            border-top: 1.8px solid var(--netlivy-primary-brand-blue); 
+            border-radius: 50%;
+            animation: netlivyRotationKeyframe .6s linear infinite; 
+        }
+
+        @keyframes netlivyRotationKeyframe { to { transform: rotate(360deg); } }
+
+        /* Control Panel */
+        .netlivy-player-interactive-controls-panel {
+            background: var(--netlivy-glass-overlay-background); 
+            backdrop-filter: blur(30px); 
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 14px;
+            display: flex; align-items: center; 
+            height: 49px; padding: 0 10px;
+            margin-top: 15px; gap: 5px;
+            transition: opacity 0.5s ease;
+        }
+
+        .netlivy-control-action-button {
+            background: none; border: none; color: #fff;
+            flex: 1; height: 100%; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; font-size: 18px;
+            transition: 0.2s;
+        }
+
+        .netlivy-control-action-button:active { 
+            transform: scale(0.85); opacity: 0.7; 
+        }
+
+        .netlivy-visual-vertical-divider { 
+            width: 1px; height: 20px; 
+            background: rgba(255, 255, 255, 0.1); 
+        }
+
+        /* Visibility States */
+        .netlivy-ui-element-hidden-state { 
+            opacity: 0 !important; 
+            visibility: hidden !important; 
+            pointer-events: none; 
+        }
+
+        /* Settings Floating Menu */
+        .netlivy-player-settings-dropdown-menu {
+            position: absolute; bottom: 70px; right: 0;
+            background: var(--netlivy-glass-overlay-background); 
+            backdrop-filter: blur(35px);
+            border-radius: 10px; padding: 10px; width: 120px;
+            display: none; flex-direction: column; 
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 100;
+        }
+
+        .netlivy-player-settings-dropdown-menu.active { 
+            display: flex; 
+        }
+
+        .netlivy-settings-option-item-button {
+            background: none; border: none; color: #fff; padding: 10px;
+            text-align: left; cursor: pointer; border-radius: 10px; font-size: 14px;
+        }
+
+        .netlivy-settings-option-item-button:hover { 
+            background: rgba(255,255,255,0.05); 
+        }
+
     </style>
 </head>
 <body>
 
-
-
 <div class="netlivy-section-content-separator-label">Explore TV</div>
-<div class="netlivy-horizontal-channel-scroll-component">
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_1/abudhabi_sports_1_hls_nd/index.m3u8', 'Abu Dhabi Sports 1')">
-        <img src="src/abudhabi1.jpg">
+
+<div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_1/abudhabi_sports_1_hls_nd/index.m3u8', 'Abu Dhabi Sports 1')">
+        <img src="https://i.postimg.cc/qRHqQ87Z/dubaisports2.png" alt="ADS 1">
         <span>Abu Dhabi Sports 1</span>
     </div>
-
- <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_2/abudhabi_sports_2_hls_nd/index.m3u8', 'Abu Dhabi Sports 2')">
-        <img src="src/abudhabi1.jpg">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_2/abudhabi_sports_2_hls_nd/index.m3u8', 'Abu Dhabi Sports 2')">
+        <img src="https://i.postimg.cc/qRHqQ87Z/dubaisports2.png" alt="ADS 2">
         <span>Abu Dhabi Sports 2</span>
     </div>
-
- <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8', 'Bahrain Sports 1')">
-        <img src="src/bahrain1.jpg">
-        <span>Bahrain Sports 1</span>
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd/smil:dubaisportshd.smil/chunklist.m3u8', 'Dubai Sports 2')">
+        <img src="https://i.postimg.cc/qRHqQ87Z/dubaisports2.png" alt="Dubai 2">
+        <span>Dubai Sports 2</span>
+    </div>
     </div>
 
- <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8', 'Bahrain Sports 2')">
-        <img src="src/bahrain2.jpg">
-        <span>Bahrain Sports 2</span>
-    </div>
-   <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd/smil:dubaisportshd.smil/chunklist.m3u8', 'Dubai Sports 2 ')">
-        <img src="https://i.postimg.cc/qRHqQ87Z/dubaisports2.png">
-        <span>
-            Dubai Sports 2
-        </span>
-    </div>
-  <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd5/smil:dubaisportshd5.smil/chunklist.m3u8', 'Dubai Sports 3 ')">
-        <img src="https://i.postimg.cc/hj8jYfz4/dubaisports3.png">
-        <span>Dubai Sports 3 </span>
-    </div>
- <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/emarat_tv/emarat_tv_hls_nd/index.m3u8', 'Abu Dhabi Emirates')">
-        <img src="src/AbuDhabiEmirates.jpg">
-        <span>Abu Dhabi Emirates</span>
-    </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_tv/abudhabi_tv_hls_nd/index.m3u8', 'Abu Dhabi TV')">
-        <img src="src/AbuDhabiTV.jpg">
-        <span>Abu Dhabi TV</span>
-    </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8', 'Alarabiya TV')">
-        <img src="src/256x256bb.jpg">
-        <span>
-        Alarabiya TV  
-        </span>
-    </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://cnbc-live.akamaized.net/cnbc/master.m3u8', 'CNBC Arabiya')">
-        <img src="https://i.imgur.com/opBXx1K.png">
-        <span>
-           CNBC Arabiya 
-        </span>
-    </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://dminnvllta.cdn.mgmlcdn.com/dubaione/smil:dubaione.stream.smil/chunklist.m3u8', 'Dubai One  TV')">
-        <img src="src/256x256bb.jpg">
-        <span>
-       Dubai One
-        </span>
-    </div>
 
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://dmiffthftl.cdn.mangomolo.com/dubaizaman/smil:dubaizaman.stream.smil/chunklist.m3u8', 'Dubai Zaman  TV')">
-        <img src="src/256x256bb.jpg">
-        <span>Dubai Zaman</span>
-    </div>
+<div class="netlivy-ultra-video-player-fullscreen-overlay" id="netlivyGlobalPlayerOverlay">
+    <div class="netlivy-video-player-central-container" id="netlivyMainPlayerContainer">
+        
+        <div class="netlivy-player-header-information" id="netlivyCurrentChannelDisplayTitle">Channel Name</div>
+        
+        <div class="netlivy-video-playback-rendering-box" id="netlivyVideoRenderingSurface">
+            <div class="netlivy-video-buffering-loader-wrapper" id="netlivyVideoPlaybackLoadingSpinner">
+                <div class="netlivy-loading-spinner-element"></div>
+            </div>
+            <video id="netlivyPrimaryVideoElement" playsinline></video>
+        </div>
 
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/national_geo/national_geo_hls_nd/index.m3u8', 'National Geographic Abu Dhabi')">
-        <img src="https://i.imgur.com/fNA00VF.png">
-        <span>National Geographic Abu Dhabi</span>
-    </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://live.alarabiya.net/alarabiapublish/aswaaq.smil/playlist.m3u8', 'Al Arabiya Business')">
-        <img src="https://i.postimg.cc/85MKQbwQ/alarabiyabusiness.png">
-        <span>Al Arabiya Business</span>
-    </div>
-<div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8', 'Alarabiya')">
-        <img src="https://i.imgur.com/NXFkYFj.png">
-        <span>Alarabiya</span>
-    </div>
-<div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://cnbc-live.akamaized.net/cnbc/master.m3u8', 'CNBC Arabiya')">
-        <img src="https://i.imgur.com/opBXx1K.png">
-        <span>CNBC Arabiya</span>
-    </div>
-<div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://svs.itworkscdn.net/smcwatarlive/smcwatar/playlist.m3u8', 'Watar Radio')">
-        <img src="https://sbauae.faulio.com/storage/mediagallery/d2/ad/fullhd_48adf2291d08266c05ed1b0c24f326c86b1095b7.png">
-        <span>Watar Radio</span>
-    </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/yas_1/yas_1_hls_nd/index.m3u8', 'Yas TV')">
-        <img src="https://i.imgur.com/CSHQhP4.png">
-        <span>Yas TV</span>
-    </div>
+        <div class="netlivy-player-interactive-controls-panel" id="netlivyGlobalPlayerControls">
+            <button class="netlivy-control-action-button" onclick="netlivyTerminateActiveVideoSession()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div class="netlivy-visual-vertical-divider"></div>
+            <button class="netlivy-control-action-button" onclick="netlivyAdjustVideoCurrentTimePosition(-10)">
+                <i class="fa-solid fa-rotate-left"></i>
+            </button>
+            <button class="netlivy-control-action-button" onclick="netlivyToggleVideoPlaybackState()">
+                <i class="fa-solid fa-play" id="netlivyPlayPauseIconElement"></i>
+            </button>
+            <button class="netlivy-control-action-button" onclick="netlivyAdjustVideoCurrentTimePosition(10)">
+                <i class="fa-solid fa-rotate-right"></i>
+            </button>
+            <div class="netlivy-visual-vertical-divider"></div>
+            <button class="netlivy-control-action-button" onclick="netlivyToggleSystemFullscreenMode()">
+                <i class="fa-solid fa-expand" id="netlivyFullscreenToggleIcon"></i>
+            </button>
+            <button class="netlivy-control-action-button" onclick="netlivyToggleVideoAudioMuteState()">
+                <i class="fa-solid fa-volume-low" id="netlivyVolumeLevelIcon"></i>
+            </button>
+            <button class="netlivy-control-action-button" onclick="netlivyToggleSettingsDropdownVisibility()">
+                <i class="fa-solid fa-fire"></i>
+            </button>
+        </div>
 
-</div>
-
-
-
-
-<div class="netlivy-ultra-video-player-fullscreen-overlay" id="netlivyUltraPlayerOverlay">
-    <div class="netlivy-ultra-video-player-top-navigation-bar">
-        <h3 id="netlivy-current-active-channel-title" style="margin:0">Media Player</h3>
-        <i class="fa-solid fa-chevron-down" style="font-size:24px; cursor:pointer;" onclick="netlivyTerminateVideoPlayback()"></i>
+        <div class="netlivy-player-settings-dropdown-menu" id="netlivyVideoQualitySettingsMenu">
+            <div style="font-size: 11px; opacity: 0.5; padding: 5px 10px; color: #fff;">Video Quality</div>
+            <div id="netlivyDynamicQualityListContainer"></div>
+        </div>
     </div>
-    <video id="netlivy-ultra-main-video-source-element" controls autoplay playsinline></video>
 </div>
 
 <script>
-    const netlivyHlsInstance = new Hls();
-    const netlivyVideoElement = document.getElementById('netlivy-ultra-main-video-source-element');
-    const netlivyPlayerOverlayContainer = document.getElementById('netlivyUltraPlayerOverlay');
+    /**
+     * Netlivy Professional Video Player Controller
+     * Versiya: 2.0.0
+     */
 
+    const netlivyHlsEngine = new Hls();
+    const netlivyVideoDOMElement = document.getElementById('netlivyPrimaryVideoElement');
+    const netlivyOverlayWrapper = document.getElementById('netlivyGlobalPlayerOverlay');
+    const netlivyLoadingSpinner = document.getElementById('netlivyVideoPlaybackLoadingSpinner');
+    const netlivyPlayStatusIcon = document.getElementById('netlivyPlayPauseIconElement');
+    const netlivyVolumeStatusIcon = document.getElementById('netlivyVolumeLevelIcon');
+    const netlivyHeaderTitleLabel = document.getElementById('netlivyCurrentChannelDisplayTitle');
+    const netlivyControlsContainer = document.getElementById('netlivyGlobalPlayerControls');
+    const netlivySettingsMenuPanel = document.getElementById('netlivyVideoQualitySettingsMenu');
+    
+    let netlivyUserInterfaceInactivityTimer;
 
+    /**
+     * Foydalanuvchi interfeysini ko'rsatish va vaqtinchalik yashirish taymerini boshqarish
+     */
+    function netlivyRefreshInterfaceVisibilityState() {
+        netlivyControlsContainer.classList.remove('netlivy-ui-element-hidden-state');
+        netlivyHeaderTitleLabel.classList.remove('netlivy-ui-element-hidden-state');
+        
+        clearTimeout(netlivyUserInterfaceInactivityTimer);
+        
+        netlivyUserInterfaceInactivityTimer = setTimeout(() => {
+            if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
+                netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
+      }
+        }, 50000); // 5 soniyadan so'ng yashirish
+    }
 
-    function netlivyInitiateVideoPlayback(videoUrl, channelName) {
-        document.getElementById('netlivy-current-active-channel-title').innerText = channelName;
-        netlivyPlayerOverlayContainer.style.display = 'flex';
+    // Interaktiv elementlarga hodisa tinglovchilarini biriktirish
+    [netlivyVideoDOMElement, netlivyControlsContainer].forEach(element => {
+        element.addEventListener('mousemove', netlivyRefreshInterfaceVisibilityState);
+        element.addEventListener('touchstart', netlivyRefreshInterfaceVisibilityState);
+    });
+
+    /**
+     * Video oqimini boshlash va HLS obyektini sozlash
+     */
+    function netlivyExecuteVideoPlaybackInitialization(streamSourceUrl, channelDisplayName) {
+        netlivyHeaderTitleLabel.innerText = channelDisplayName;
+        netlivyOverlayWrapper.classList.add('active');
+        netlivyLoadingSpinner.classList.add('active');
+        netlivyRefreshInterfaceVisibilityState();
+
         if (Hls.isSupported()) {
-            netlivyHlsInstance.loadSource(videoUrl);
-            netlivyHlsInstance.attachMedia(netlivyVideoElement);
-        } else if (netlivyVideoElement.canPlayType('application/vnd.apple.mpegurl')) {
-            netlivyVideoElement.src = videoUrl;
+            netlivyHlsEngine.loadSource(streamSourceUrl);
+            netlivyHlsEngine.attachMedia(netlivyVideoDOMElement);
+            netlivyHlsEngine.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
+                netlivyPopulateQualitySelectionMenu(data.levels);
+                netlivyVideoDOMElement.play().catch(error => console.error("Playback failed:", error));
+                netlivyPlayStatusIcon.className = 'fa-solid fa-pause';
+            });
+        } else if (netlivyVideoDOMElement.canPlayType('application/vnd.apple.mpegurl')) {
+            netlivyVideoDOMElement.src = streamSourceUrl;
+            netlivyVideoDOMElement.play();
         }
     }
 
-    function netlivyTerminateVideoPlayback() {
-        netlivyPlayerOverlayContainer.style.display = 'none';
-        netlivyVideoElement.pause();
-        netlivyHlsInstance.detachMedia();
-    }
+    /**
+     * Fullscreen rejimini boshqarish
+     */
+    function netlivyToggleSystemFullscreenMode() {
+        const playerContainer = document.getElementById('netlivyGlobalPlayerOverlay');
+        const fullscreenIcon = document.getElementById('netlivyFullscreenToggleIcon');
 
-    function netlivyInitializeOneUiComponent() {
-        const netlivyCurrentDate = new Date();
-        const netlivyCurrentMinutesInDay = netlivyCurrentDate.getHours() * 60 + netlivyCurrentDate.getMinutes();
-        const netlivyDayString = String(netlivyCurrentDate.getDate()).padStart(2, '0');
-        const netlivyMonthString = String(netlivyCurrentDate.padStart ? netlivyCurrentDate.getMonth() + 1 : netlivyCurrentDate.getMonth() + 1).toString().padStart(2, '0');
-        const netlivyFormattedToday = `${netlivyDayString}.${netlivyMonthString}`;
-
-        const netlivyCurrentHour = netlivyCurrentDate.getHours();
-        document.getElementById('netlivy-dynamic-greeting-message').innerText = 
-            netlivyCurrentHour < 12 ? "Xayrli tong" : netlivyCurrentHour < 18 ? "Xayrli kun" : "Xayrli kecha";
-
-        document.getElementById('netlivy-formatted-full-date-display').innerText = 
-            netlivyCurrentDate.toLocaleDateString('uz-UZ', { day:'numeric', month:'long', weekday:'long'});
-
-        const netlivyEpgContainer = document.getElementById('netlivy-dynamic-epg-list-container');
-
-        const netlivyFilteredEpgItems = netlivyEpgDataSource.filter(item => {
-            const netlivyDateParts = item.date.split('.');
-            const netlivyItemDay = parseInt(netlivyDateParts[0]);
-            const netlivyItemMonth = parseInt(netlivyDateParts[1]);
-            const netlivyItemDateObj = new Date(netlivyCurrentDate.getFullYear(), netlivyItemMonth - 1, netlivyItemDay);
-            const netlivyTodayBaseline = new Date(netlivyCurrentDate.getFullYear(), netlivyCurrentDate.getMonth(), netlivyCurrentDate.getDate());
-
-            if (netlivyItemDateObj < netlivyTodayBaseline) return false;
-
-            if (item.date.includes(netlivyFormattedToday)) {
-                const [h, m] = item.time.split(':').map(Number);
-                const netlivyItemStartMinutes = h * 60 + m;
-                // Efir boshlanganidan 2 soat (120 min) o'tgach o'chadi
-                if (netlivyCurrentMinutesInDay > (netlivyItemStartMinutes + 240)) return false; 
+        if (!document.fullscreenElement) {
+            if (playerContainer.requestFullscreen) {
+                playerContainer.requestFullscreen();
+            } else if (playerContainer.webkitRequestFullscreen) {
+                playerContainer.webkitRequestFullscreen();
             }
-            return true;
-        });
-
-        netlivyEpgContainer.innerHTML = netlivyFilteredEpgItems.map(item => {
-            const [h, m] = item.time.split(':').map(Number);
-            const netlivyItemTotalMinutes = h * 60 + m;
-            const netlivyIsToday = item.date.includes(netlivyFormattedToday);
-            const netlivyIsCurrentlyLive = netlivyIsToday && 
-                (netlivyCurrentMinutesInDay >= netlivyItemTotalMinutes && netlivyCurrentMinutesInDay < netlivyItemTotalMinutes + 120);
-
-            // QVZ yoki boshqa haftalik efir tugmasi har doim bosilganda pleyerni ochadi
-            return `
-                <div class="netlivy-epg-event-item-interactive-card ${netlivyIsCurrentlyLive ? 'netlivy-is-currently-broadcasting' : ''}" 
-                     onclick="netlivyInitiateVideoPlayback('${item.url}', '${item.ch} - ${item.title}')">
-                    <div class="netlivy-epg-event-time-metadata-box">
-                        <span class="netlivy-epg-event-start-time-text">${item.time}</span>
-                        <span class="netlivy-epg-event-date-subtext">${item.date.substring(0,5)}</span>
-                    </div>
-                    <div class="netlivy-epg-event-main-info-container">
-                        <span class="netlivy-epg-event-program-title-label">
-                            ${netlivyIsCurrentlyLive ? '<span class="netlivy-live-status-pulsating-indicator"></span>' : ''}
-                            ${item.title || 'Maxsus ko\'rsatuv'}
-                        </span>
-                        <span class="netlivy-epg-event-channel-identity-text">${item.ch} • ${netlivyIsToday ? 'Bugun' : item.day}</span>
-                    </div>
-                    <i class="fa-solid ${netlivyIsCurrentlyLive ? 'fa-circle-play' : 'fa-play'}" 
-                       style="color:${netlivyIsCurrentlyLive ? 'var(--netlivy-primary-samsung-blue)' : 'var(--netlivy-text-color-dim-gray)'}; font-size:24px"></i>
-                </div>
-            `;
-        }).join('');
+            
+            fullscreenIcon.className = 'fa-solid fa-compress';
+            
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock('landscape').catch(() => {});
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+            fullscreenIcon.className = 'fa-solid fa-expand';
+            if (screen.orientation && screen.orientation.unlock) {
+                screen.orientation.unlock();
+            }
+        }
     }
 
-    netlivyInitializeOneUiComponent();
-    setInterval(netlivyInitializeOneUiComponent, 60000);
+    /**
+     * Video sifatini tanlash menyusini yaratish
+     */
+    function netlivyPopulateQualitySelectionMenu(availableLevels) {
+        const qualityListContainer = document.getElementById('netlivyDynamicQualityListContainer');
+        qualityListContainer.innerHTML = '<button class="netlivy-settings-option-item-button" onclick="netlivyUpdateActiveVideoQuality(-1)">Auto</button>';
+        
+        availableLevels.forEach((level, index) => {
+            const qualityButton = document.createElement('button');
+            qualityButton.className = 'netlivy-settings-option-item-button';
+            qualityButton.innerText = level.height + 'p';
+            qualityButton.onclick = () => netlivyUpdateActiveVideoQuality(index);
+            qualityListContainer.appendChild(qualityButton);
+        });
+    }
+
+    function netlivyUpdateActiveVideoQuality(levelIndex) {
+        netlivyHlsEngine.currentLevel = levelIndex;
+        netlivySettingsMenuPanel.style.display = 'none';
+    }
+
+    /**
+     * Play/Pause holatini almashtirish
+     */
+    function netlivyToggleVideoPlaybackState() {
+        if (netlivyVideoDOMElement.paused) { 
+            netlivyVideoDOMElement.play(); 
+            netlivyPlayStatusIcon.className = 'fa-solid fa-pause'; 
+        } else { 
+            netlivyVideoDOMElement.pause(); 
+            netlivyPlayStatusIcon.className = 'fa-solid fa-play'; 
+        }
+    }
+
+    function netlivyAdjustVideoCurrentTimePosition(secondsOffset) { 
+        netlivyVideoDOMElement.currentTime += secondsOffset; 
+    }
+
+    function netlivyToggleVideoAudioMuteState() {
+        netlivyVideoDOMElement.muted = !netlivyVideoDOMElement.muted;
+        netlivyVolumeStatusIcon.className = netlivyVideoDOMElement.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low';
+    }
+
+    function netlivyToggleSettingsDropdownVisibility() {
+        const isVisible = netlivySettingsMenuPanel.style.display === 'flex';
+        netlivySettingsMenuPanel.style.display = isVisible ? 'none' : 'flex';
+    }
+
+    /**
+     * Playback sessiyasini to'xtatish va resurslarni bo'shatish
+     */
+    function netlivyTerminateActiveVideoSession() {
+        netlivyOverlayWrapper.classList.remove('active');
+        netlivyVideoDOMElement.pause();
+        netlivyHlsEngine.detachMedia();
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch(() => {});
+        }
+    }
+
+    // Video holati hodisalarini kuzatish
+    netlivyVideoDOMElement.addEventListener('waiting', () => netlivyLoadingSpinner.classList.add('active'));
+    netlivyVideoDOMElement.addEventListener('playing', () => netlivyLoadingSpinner.classList.remove('active'));
+
 </script>
 
 </body>
