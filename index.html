@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
-    <style>
+     <style>
         :root {
             --netlivy-primary-brand-blue: #0356d0;
             --netlivy-background-phantom-black: #0a0a0b;
@@ -37,7 +37,13 @@
             --netlivy-standard-border-radius: 28px;
         }
 
-        
+        body {
+            color: var(--netlivy-text-color-main-white);
+            font-family: 'Inter', sans-serif;  
+            margin: 0; padding: 0;
+            background-color: var(--netlivy-background-phantom-black);
+            overflow-x: hidden;
+        }
 
         /* --- CHANNEL SELECTION UI --- */
         .netlivy-section-content-separator-label { 
@@ -99,7 +105,7 @@
         }
 
         .netlivy-video-player-central-container { 
-            position: relative; width: 95%; max-width: 800px; 
+            position: relative; width: 96%; max-width: 800px; 
             display: flex; flex-direction: column; 
         }
 
@@ -112,14 +118,15 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             width: 100%; 
             position: absolute; 
-            top: -39px;
-            left:-51px;
+            top: -350px;
             left: 0;
-            display: flex;
+            z-index:99999;
+            display: relative;
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
             transition: opacity 0.5s ease;
+         
         }
 
         /* Video Stage Box */
@@ -128,6 +135,7 @@
             width: 100%; 
             border-radius: 5px; 
             overflow: hidden; 
+            top: -313px;
             background: #000; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
         }
@@ -138,6 +146,8 @@
             aspect-ratio: 16/9; 
             display: block; 
             cursor: pointer; 
+        
+       
         }
 
         /* Loading Spinner */
@@ -170,7 +180,7 @@
             border-radius: 14px;
             display: flex; align-items: center; 
             height: 49px; padding: 0 10px;
-            margin-top: 15px; gap: 5px;
+            margin-top: -300px; gap: 5px;
             transition: opacity 0.5s ease;
         }
 
@@ -206,6 +216,7 @@
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
+            top: -170px;
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
@@ -215,10 +226,12 @@
         .netlivy-settings-option-item-button {
             background: none; border: none; color: #fff; padding: 10px;
             text-align: left; cursor: pointer; border-radius: 10px; font-size: 14px;
+            
         }
 
         .netlivy-settings-option-item-button:hover { 
             background: rgba(255,255,255,0.05); 
+            
         }
 
     </style>
@@ -228,12 +241,12 @@
 <div class="netlivy-section-content-separator-label">Recommended for you</div>
 
 <div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
-   
+
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1016/tracks-v1a1/mono.m3u8','Zo\'r TV')">
         <img src="src/zor.jpg" alt="ADS 2">
         <span>Zo'r TV</span>
     </div>
-   
+
 
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1015/tracks-v1a1/playlist.m3u8', 'UzReport')">
         <img src="src/Uzreport.jpg">
@@ -305,9 +318,9 @@
 
 <div class="netlivy-ultra-video-player-fullscreen-overlay" id="netlivyGlobalPlayerOverlay">
     <div class="netlivy-video-player-central-container" id="netlivyMainPlayerContainer">
-        
+
         <div class="netlivy-player-header-information" id="netlivyCurrentChannelDisplayTitle">Channel Name</div>
-        
+
         <div class="netlivy-video-playback-rendering-box" id="netlivyVideoRenderingSurface">
             <div class="netlivy-video-buffering-loader-wrapper" id="netlivyVideoPlaybackLoadingSpinner">
                 <div class="netlivy-loading-spinner-element"></div>
@@ -363,7 +376,7 @@
     const netlivyHeaderTitleLabel = document.getElementById('netlivyCurrentChannelDisplayTitle');
     const netlivyControlsContainer = document.getElementById('netlivyGlobalPlayerControls');
     const netlivySettingsMenuPanel = document.getElementById('netlivyVideoQualitySettingsMenu');
-    
+
     let netlivyUserInterfaceInactivityTimer;
 
     /**
@@ -372,9 +385,9 @@
     function netlivyRefreshInterfaceVisibilityState() {
         netlivyControlsContainer.classList.remove('netlivy-ui-element-hidden-state');
         netlivyHeaderTitleLabel.classList.remove('netlivy-ui-element-hidden-state');
-        
+
         clearTimeout(netlivyUserInterfaceInactivityTimer);
-        
+
         netlivyUserInterfaceInactivityTimer = setTimeout(() => {
             if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
                 netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
@@ -424,9 +437,9 @@
             } else if (playerContainer.webkitRequestFullscreen) {
                 playerContainer.webkitRequestFullscreen();
             }
-            
+
             fullscreenIcon.className = 'fa-solid fa-compress';
-            
+
             if (screen.orientation && screen.orientation.lock) {
                 screen.orientation.lock('landscape').catch(() => {});
             }
@@ -447,7 +460,7 @@
     function netlivyPopulateQualitySelectionMenu(availableLevels) {
         const qualityListContainer = document.getElementById('netlivyDynamicQualityListContainer');
         qualityListContainer.innerHTML = '<button class="netlivy-settings-option-item-button" onclick="netlivyUpdateActiveVideoQuality(-1)">Auto</button>';
-        
+
         availableLevels.forEach((level, index) => {
             const qualityButton = document.createElement('button');
             qualityButton.className = 'netlivy-settings-option-item-button';
