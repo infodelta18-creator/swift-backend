@@ -39,7 +39,7 @@ const HeroBanner = () => {
       <div className='wrapper'>
         <div className='heroBannerContent'>
 
-          <span className='title'>ДОБРЫЙ ДЕНЬ</span>
+          <span className='title'>WELCOME!</span>
           <span className='subtitle'>The ultimate destination for movie lovers. Experience the magic with us explore  Amediateka,Онлайн ТВ и Кино </span>
 
           <div className='inputbox'>
