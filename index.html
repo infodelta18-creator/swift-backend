@@ -1804,13 +1804,15 @@ function closePopup() {
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             width: 100%; 
             position: absolute; 
-            top: -42px;
+            top: -350px;
             left: 0;
-            display: flex;
+            z-index:99999;
+            display: relative;
             justify-content: space-between;
             align-items: center;
             box-sizing: border-box;
             transition: opacity 0.5s ease;
+         
         }
 
         /* Video Stage Box */
@@ -1819,6 +1821,7 @@ function closePopup() {
             width: 100%; 
             border-radius: 5px; 
             overflow: hidden; 
+            top: -313px;
             background: #000; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
         }
@@ -1829,6 +1832,8 @@ function closePopup() {
             aspect-ratio: 16/9; 
             display: block; 
             cursor: pointer; 
+        
+       
         }
 
         /* Loading Spinner */
@@ -1861,7 +1866,7 @@ function closePopup() {
             border-radius: 14px;
             display: flex; align-items: center; 
             height: 49px; padding: 0 10px;
-            margin-top: 15px; gap: 5px;
+            margin-top: -300px; gap: 5px;
             transition: opacity 0.5s ease;
         }
 
@@ -1897,6 +1902,7 @@ function closePopup() {
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
+            top: -170px;
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
@@ -1906,10 +1912,12 @@ function closePopup() {
         .netlivy-settings-option-item-button {
             background: none; border: none; color: #fff; padding: 10px;
             text-align: left; cursor: pointer; border-radius: 10px; font-size: 14px;
+            
         }
 
         .netlivy-settings-option-item-button:hover { 
             background: rgba(255,255,255,0.05); 
+            
         }
 
     </style>
@@ -1937,7 +1945,7 @@ function closePopup() {
         <img src="https://i.postimg.cc/qRHqQ87Z/dubaisports2.png" alt="Dubai 2">
         <span>Dubai Sports 2</span>
     </div>
-      
+
 
  <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8', 'Bahrain Sports 1')">
         <img src="src/bahrain1.jpg">
@@ -1948,7 +1956,7 @@ function closePopup() {
         <img src="src/bahrain2.jpg">
         <span>Bahrain Sports 2</span>
     </div>
-   
+
   <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://dmitwlvvll.cdn.mgmlcdn.com/dubaisportshd5/smil:dubaisportshd5.smil/chunklist.m3u8', 'Dubai Sports 3 ')">
         <img src="https://i.postimg.cc/hj8jYfz4/dubaisports3.png">
         <span>Dubai Sports 3 </span>
@@ -1967,7 +1975,7 @@ function closePopup() {
         Alarabiya TV  
         </span>
     </div>
-    
+
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://dminnvllta.cdn.mgmlcdn.com/dubaione/smil:dubaione.stream.smil/chunklist.m3u8', 'Dubai One  TV')">
         <img src="src/256x256bb.jpg">
         <span>
@@ -2009,9 +2017,9 @@ function closePopup() {
 
 <div class="netlivy-ultra-video-player-fullscreen-overlay" id="netlivyGlobalPlayerOverlay">
     <div class="netlivy-video-player-central-container" id="netlivyMainPlayerContainer">
-        
+
         <div class="netlivy-player-header-information" id="netlivyCurrentChannelDisplayTitle">Channel Name</div>
-        
+
         <div class="netlivy-video-playback-rendering-box" id="netlivyVideoRenderingSurface">
             <div class="netlivy-video-buffering-loader-wrapper" id="netlivyVideoPlaybackLoadingSpinner">
                 <div class="netlivy-loading-spinner-element"></div>
@@ -2067,7 +2075,7 @@ function closePopup() {
     const netlivyHeaderTitleLabel = document.getElementById('netlivyCurrentChannelDisplayTitle');
     const netlivyControlsContainer = document.getElementById('netlivyGlobalPlayerControls');
     const netlivySettingsMenuPanel = document.getElementById('netlivyVideoQualitySettingsMenu');
-    
+
     let netlivyUserInterfaceInactivityTimer;
 
     /**
@@ -2076,9 +2084,9 @@ function closePopup() {
     function netlivyRefreshInterfaceVisibilityState() {
         netlivyControlsContainer.classList.remove('netlivy-ui-element-hidden-state');
         netlivyHeaderTitleLabel.classList.remove('netlivy-ui-element-hidden-state');
-        
+
         clearTimeout(netlivyUserInterfaceInactivityTimer);
-        
+
         netlivyUserInterfaceInactivityTimer = setTimeout(() => {
             if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
                 netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
@@ -2128,9 +2136,9 @@ function closePopup() {
             } else if (playerContainer.webkitRequestFullscreen) {
                 playerContainer.webkitRequestFullscreen();
             }
-            
+
             fullscreenIcon.className = 'fa-solid fa-compress';
-            
+
             if (screen.orientation && screen.orientation.lock) {
                 screen.orientation.lock('landscape').catch(() => {});
             }
@@ -2151,7 +2159,7 @@ function closePopup() {
     function netlivyPopulateQualitySelectionMenu(availableLevels) {
         const qualityListContainer = document.getElementById('netlivyDynamicQualityListContainer');
         qualityListContainer.innerHTML = '<button class="netlivy-settings-option-item-button" onclick="netlivyUpdateActiveVideoQuality(-1)">Auto</button>';
-        
+
         availableLevels.forEach((level, index) => {
             const qualityButton = document.createElement('button');
             qualityButton.className = 'netlivy-settings-option-item-button';
