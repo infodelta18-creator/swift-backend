@@ -1,5 +1,5 @@
 .videoPopup {
-    display: flex;
+    display: fixed;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -16,7 +16,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.25);
+     
         backdrop-filter: blur(3.5px);
         -webkit-backdrop-filter: blur(3.5px);
         opacity: 0;
@@ -26,7 +26,7 @@
         position: relative;
         width: 800px;
         aspect-ratio: 16 / 9;
-        background-color: rgba(153, 205, 50, 0.551);
+     
         // filter: blur(4px);
         transform: scale(0.2);
         transition: transform 250ms;
