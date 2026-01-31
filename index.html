@@ -16,6 +16,23 @@
   </body>
 </html>
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="./src/assets/info.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netlivy - Медиатека,Онлайн ТВ,фильмы, и телепередачи</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
@@ -147,7 +164,12 @@
         .netlivy-video-buffering-loader-wrapper.active { 
             display: flex; 
         }
-
+/* Body scroll lock holati */
+.netlivy-scroll-lock {
+    overflow: hidden !important;
+    height: 100vh;
+    touch-action: none;
+}
         .netlivy-loading-spinner-element { 
             width: 45px; height: 45px; 
             border: 2px solid rgba(255,255,255,0.1);
@@ -170,7 +192,12 @@
             margin-top: -345px; gap: 5px;
             transition: opacity 0.5s ease;
         }
-
+.netlivy-ultra-video-player-fullscreen-overlay,
+.netlivy-video-playback-rendering-box,
+video {
+    touch-action: none;
+    overscroll-behavior: contain;
+}
         .netlivy-control-action-button {
             background: none; border: none; color: #fff;
             flex: 1; height: 100%; cursor: pointer; display: flex;
@@ -503,7 +530,9 @@
     // Video holati hodisalarini kuzatish
     netlivyVideoDOMElement.addEventListener('waiting', () => netlivyLoadingSpinner.classList.add('active'));
     netlivyVideoDOMElement.addEventListener('playing', () => netlivyLoadingSpinner.classList.remove('active'));
-
+netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+}, { passive: false });
 </script>
 
 </body>
