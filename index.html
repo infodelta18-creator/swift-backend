@@ -244,12 +244,16 @@ video {
         <img src="src/Zvezda_logo.svg.png">
         <span>ZvezdaTV</span>
     </div>
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://infochh.trkeurasia.ru/hlsinfoch/infochhd.m3u8','')">
+        <img src="src/euroasia.jpg" alt="ADS 2">
+        <span>Euroasia</span>
+    </div>
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1016/tracks-v1a1/mono.m3u8','')">
         <img src="src/zor.jpg" alt="ADS 2">
         <span>Zo'r TV</span>
     </div>
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://player.smotrim.ru/iframe/stream/live_id/3214d57c-8651-435a-938c-be13bfd00a04', '')">
-        <img src="src/Uzreport.jpg">
+        <img src="src/russianewtvlogo.jpg">
         <span>Rossiya24</span>
     </div>
 
@@ -1335,6 +1339,16 @@ video {
     </div>
 
     <div class="title">Almaznyy</div>
+</div>
+<div class="channel-link"
+     onclick="netlivyExecuteVideoPlaybackInitialization('https://hls-tvsoyuz.cdnvideo.ru/tvsoyuz/soyuz/playlist.m3u8','')">
+
+    <div class="img-container">
+        <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/soyuztvt.png">
+        <span class="nd-label">HD</span>
+    </div>
+
+    <div class="title">Soyuz TV</div>
 </div>
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('http://stv.mediacdn.ru/live/cdn/ani/playlist.m3u8','')">
@@ -2780,10 +2794,23 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
 <div class="netlivy-section-content-separator-label">Explore TV</div>
 
 <div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cnbc-live.akamaized.net/cnbc/master.m3u8', '')">
+   <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://rt-glb.rttv.com/live/rtnews/playlist.m3u8', '')">
+        <img src="src/RT_Logo.svg.png">
+        <span>
+           RussiaToday
+        </span>
+    </div>
+
+ <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cnbc-live.akamaized.net/cnbc/master.m3u8', '')">
         <img src="src/cnbc.png">
         <span>
            CNBC Arabiya 
+        </span>
+    </div>
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('http://serv30.vintera.tv:8081/sochi/sochi24_tv/playlist.m3u8', '')">
+        <img src="src/sochi24.jpeg">
+        <span>
+           Sochi24
         </span>
     </div>
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/abudhabi_sports_1/abudhabi_sports_1_hls_nd/index.m3u8', '')">
