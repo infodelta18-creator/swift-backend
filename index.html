@@ -240,12 +240,18 @@ video {
 <div class="netlivy-section-content-separator-label">Recommended for you</div>
 
 <div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
-
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://tvchannelstream1.tvzvezda.ru/cdn/tvzvezda/playlist.m3u8', '')">
+        <img src="src/Zvezda_logo.svg.png">
+        <span>ZvezdaTV</span>
+    </div>
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1016/tracks-v1a1/mono.m3u8','')">
         <img src="src/zor.jpg" alt="ADS 2">
         <span>Zo'r TV</span>
     </div>
-
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://player.smotrim.ru/iframe/stream/live_id/3214d57c-8651-435a-938c-be13bfd00a04', '')">
+        <img src="src/Uzreport.jpg">
+        <span>Rossiya24</span>
+    </div>
 
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1015/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/Uzreport.jpg">
@@ -256,6 +262,10 @@ video {
         <span>
             FTV
         </span>
+    </div>
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('http://tvzvezda.bonus-tv.ru/cdn/zvezdaplus/playlist.m3u8', '')">
+        <img src="src/zvezda_plyus.png">
+        <span>ZvezdaPlus</span>
     </div>
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/milliy.jpg">
@@ -1225,15 +1235,26 @@ video {
 
     <div class="title">Канал 1</div>
 </div>
+
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://player.smotrim.ru/iframe/stream/live_id/3214d57c-8651-435a-938c-be13bfd00a04','')">
 
     <div class="img-container">
-        <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/russia24tv.jpg">
+        <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/russianewtvlogo.jpg">
         <span class="nd-label">HD</span>
     </div>
 
     <div class="title">Россия 24</div>
+</div>
+ <div class="channel-link"
+     onclick="netlivyExecuteVideoPlaybackInitialization('https://vgtrkregion-reg.cdnvideo.ru/vgtrk/0/russia1-hd/index.m3u8','')">
+
+    <div class="img-container">
+        <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/russia1.jpg">
+        <span class="nd-label">HD</span>
+    </div>
+
+    <div class="title">Россия 1</div>
 </div>
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://cdn-evacoder-tv.facecast.io/evacoder_hls_hi/CkxfR1xNUAJwTgtXTBZTAJli/index.m3u8','')">
@@ -1254,6 +1275,26 @@ video {
     </div>
 
     <div class="title">360° News </div>
+</div>
+<div class="channel-link"
+     onclick="netlivyExecuteVideoPlaybackInitialization('http://hls.mirtv.cdnvideo.ru/mirtv-parampublish/mirtv_2500/playlist.m3u8','')">
+
+    <div class="img-container">
+        <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/mirtvlogo.jpg">
+        <span class="nd-label">HD</span>
+    </div>
+
+    <div class="title">MirTV</div>
+</div>
+<div class="channel-link"
+     onclick="netlivyExecuteVideoPlaybackInitialization('http://hls.mirtv.cdnvideo.ru/mirtv-parampublish/mir24_2500/playlist.m3u8','')">
+
+    <div class="img-container">
+        <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/mir24tvlogo.jpeg">
+        <span class="nd-label">HD</span>
+    </div>
+
+    <div class="title">Mir24</div>
 </div>
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('http://live2-aisttv.cdnvideo.ru/aisttv2/aisttv.sdp/playlist.m3u8','')">
