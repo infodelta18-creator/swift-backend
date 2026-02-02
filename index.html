@@ -16,6 +16,23 @@
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="./src/assets/info.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netlivy - Онлайн ТВ, медиатека и телепередачи</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
 
 
 <!DOCTYPE html>
@@ -283,6 +300,11 @@ video {
         <img src="src/zvezda_plyus.png">
         <span>ZvezdaPlus</span>
     </div>
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playlist.m3u8', '')">
+        <img src="src/beksportstv.jpg">
+        <span>BekSport</span>
+    </div>
+    
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/milliy.jpg">
         <span>Milliy TV</span>
@@ -304,42 +326,42 @@ video {
 
 
 
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://stream8.cinerama.uz/1002/tracks-v1a1/playlist.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1002/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/yoshlar.jpg">
         <span>
           Yoshlar  
         </span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://stream8.cinerama.uz/1217/tracks-v1a1/playlist.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1217/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/my5tv.jpg">
         <span>
            MY5 
         </span>
     </div>
 
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://stream8.cinerama.uz/1015/tracks-v1a1/playlist.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1015/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/Uzreport.jpg">
         <span>
             UzReport 
         </span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://stream8.cinerama.uz/1001/tracks-v1a1/playlist.m3u8', 'O'zbekiston')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1001/tracks-v1a1/playlist.m3u8', 'O'zbekiston')">
         <img src="src/uzb.jpg">
         <span>O'zbekiston </span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://fl.biztv.media/biz_tv_720_uni8jhub4h8fub4idejswh8dh3j94finbu4nidj39inwsj92in3d/index.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://fl.biztv.media/biz_tv_720_uni8jhub4h8fub4idejswh8dh3j94finbu4nidj39inwsj92in3d/index.m3u8', '')">
         <img src="src/biz.jpg">
         <span>Biz TV</span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://fl.biztv.media/cinema_720_EMfSyXgoRdiIHgldXTZICucKTIeCKO/index.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://fl.biztv.media/cinema_720_EMfSyXgoRdiIHgldXTZICucKTIeCKO/index.m3u8', '')">
         <img src="src/bizcinema.jpg">
         <span>Biz Cinema</span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://stream8.cinerama.uz/1006/tracks-v1a1/playlist.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1006/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/dunyob.jpg">
         <span>Dunyo bo'ylab</span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyInitiateVideoPlayback('https://stream8.cinerama.uz/1007/playlist.m3u8', '')">
+    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1007/playlist.m3u8', '')">
         <img src="src/bolajon.jpg">
         <span>Bolajon </span>
     </div>
