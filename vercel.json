@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/radio",
+      "destination": "/radio.html"
+    }
+  ]
+}
