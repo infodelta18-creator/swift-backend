@@ -177,7 +177,7 @@ border-radius: 5.5px;
       .netlivy-loading-spinner-element { 
             width: 46px; height: 46px; 
             border: 0px solid rgba(255,255,255,0.1);
-            border-top: 2px solid var(--netlivy-primary-brand-blue); 
+            border-top: 2px solid #fff; 
             border-radius: 50%;
             animation: netlivyRotationKeyframe .6s linear infinite; 
         }
@@ -206,11 +206,12 @@ video {
             background: none; border: none; color: #fff;
             flex: 1; height: 100%; cursor: pointer; display: flex;
             align-items: center; justify-content: center; font-size: 18px;
-            transition: 0.2s;
+            transition: 0.4s;
         }
 
         .netlivy-control-action-button:active { 
             transform: scale(0.85); opacity: 0.7; 
+          
         }
 
         .netlivy-visual-vertical-divider { 
@@ -227,23 +228,29 @@ video {
 
         /* Settings Floating Menu */
         .netlivy-player-settings-dropdown-menu {
-            position: absolute; bottom: 70px; right: 0;
+            position: absolute;
+    bottom: 142px;
+    right: 5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(35px);
             border-radius: 10px; padding: 10px; width: 120px;
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
-            top: -175px;
+         
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
             display: flex; 
+          
         }
 
         .netlivy-settings-option-item-button {
-            background: none; border: none; color: #fff; padding: 10px;
-            text-align: left; cursor: pointer; border-radius: 10px; font-size: 14px;
+            background: none; border: none; color: #fff; padding: 7px;
+            text-align: left; cursor: pointer; border-radius: 7px; font-size: 13px;
+          display: flex;
+    flex-direction: column;   /* MUHIM */
+    gap: 5px;                 /* chiroyli oraliq */
 
         }
 
@@ -252,11 +259,33 @@ video {
 
         }
 
+
+.title-arrow {
+   position: relative;
+  font-size: 14.6px;
+  padding-right: 50px;
+  font-weight: 700;
+  margin-left: 0.7px;
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+  z-index:1;
+}
+  .title-arrow,
+.title-arrow:visited,
+.title-arrow:hover,
+.title-arrow:active {
+  color: #fff;
+}
+
+
     </style>
 </head>
 <body>
-<div class="netlivy-section-content-separator-label">Recommended for you</div>
-
+ <div class="netlivy-section-content-separator-label">Recommended for you</span>
+ <a href="https://netlivys.vercel.app/channels" class="title-arrow">
+  <i class="fa-solid fa-chevron-right"></i>
+</a>
+</div>
 <div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cdn3.wowza.com/5/ZWQ1K2NYTmpFbGsr/BEK-WOWZA-1/smil:BEKPRIMEW.smil/playlist.m3u8', '')">
         <img src="src/beksportstv.jpg">
@@ -309,7 +338,7 @@ video {
         <img src="src/Zvezda_logo.svg.png">
         <span>ZvezdaTV</span>
     </div>
-    
+
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cdn4.skygo.mn/live/disk1/Friday/HLSv3-FTA/Friday.m3u8', '')">
         <img src="src/fridayintertvlogo.jpg">
         <span>Friday</span>
@@ -453,7 +482,7 @@ video {
             if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
                 netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
       }
-        }, 200000); // 5 soniyadan so'ng yashirish
+        }, 200000); // Eslatib otamiz.Biz barcha kodlarimizga yashirin kalit soz yozib qoyganmiz,agar bu kodni kochirib,oz maqsadlaringizda noqonuniy ishlatsangiz biz sizni ustingizdan sudga murojaat qilamiz.kod ni nusxalamang,agar togri yolda ishlatmoqchi bolsangiz biz bilan boglaning.(brend malumotlaridan noqonuniy foydalanish-92million som jarima yoki 2 yilgacha ozodlikdan mahrum etish)
     }
 
     // Interaktiv elementlarga hodisa tinglovchilarini biriktirish
