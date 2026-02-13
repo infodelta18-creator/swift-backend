@@ -2688,8 +2688,7 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
-    <style>
+  <style>
         :root {
             --netlivy-primary-brand-blue: #0356d0;
             --netlivy-background-phantom-black: #0a0a0b;
@@ -2828,7 +2827,7 @@ border-radius:5.5px;
         .netlivy-loading-spinner-element { 
             width: 45px; height: 45px; 
             border: 2px solid rgba(255,255,255,0.1);
-            border-top: 1.8px solid var(--netlivy-primary-brand-blue); 
+            border-top: 1.8px solid #fff; 
             border-radius: 50%;
             animation: netlivyRotationKeyframe .6s linear infinite; 
         }
@@ -2864,6 +2863,7 @@ border-radius:5.5px;
             background: rgba(255, 255, 255, 0.1); 
         }
 
+     
         /* Visibility States */
         .netlivy-ui-element-hidden-state { 
             opacity: 0 !important; 
@@ -2873,32 +2873,39 @@ border-radius:5.5px;
 
         /* Settings Floating Menu */
         .netlivy-player-settings-dropdown-menu {
-            position: absolute; bottom: 70px; right: 0;
+            position: absolute;
+    bottom: 142px;
+    right: 5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(35px);
             border-radius: 10px; padding: 10px; width: 120px;
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
-            top: -170px;
+         
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
             display: flex; 
+          
         }
 
         .netlivy-settings-option-item-button {
-            background: none; border: none; color: #fff; padding: 10px;
-            text-align: left; cursor: pointer; border-radius: 10px; font-size: 14px;
-            
+            background: none; border: none; color: #fff; padding: 7px;
+            text-align: left; cursor: pointer; border-radius: 7px; font-size: 13px;
+          display: flex;
+    flex-direction: column;   /* MUHIM */
+    gap: 5px;                 /* chiroyli oraliq */
+
         }
 
         .netlivy-settings-option-item-button:hover { 
             background: rgba(255,255,255,0.05); 
-            
+
         }
 
     </style>
+  
 </head>
 <body>
 
