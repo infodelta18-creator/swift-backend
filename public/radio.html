@@ -540,13 +540,12 @@ font-size: 13px;
     }
 
     function setGreeting() {
-const h = new Date().getHours();
-const el = document.getElementById('greeting');
-if(h < 11) el.innerText = "Xayrli Tong ☀️";
-else if(h < 18) el.innerText = "Xayrli Kun 🌤";
-else el.innerText = "Ramazon muborak 🌙";
-}
-window.onload = setGreeting;
+        const h = new Date().getHours();
+        const el = document.getElementById('greeting');
+        if(h < 11) el.innerText = "Xayrli Tong ☀️";
+        else if(h < 18) el.innerText = "Xayrli Kun 🌤";
+        else el.innerText = "Ramazon muborak 🌙";
+    }
 
     // 4. Voice Search
     function startVoice() {
