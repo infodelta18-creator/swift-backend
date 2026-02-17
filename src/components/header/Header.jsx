@@ -8,7 +8,7 @@ import "./Header.scss";
 
 import ContentWrapper from "../contentWrapper/ContentWrapper";
 // import logo from "../../assets/logo.png";
-import netlivyLogo from "../../newlogonetlivy.png";
+import netlivyLogo from "../../twnetlivy.png";
 const Header = () => {
     const [show, setShow] = useState("top");
     const [lastScrollY, setLastScrollY] = useState(0);
