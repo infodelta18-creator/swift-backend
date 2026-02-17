@@ -68,7 +68,7 @@ const Header = () => {
             <ContentWrapper>
                 <div className="cent"> 
                <div className="logo" onClick={()=> navigate("/")}>
-   <img src={netlivyLogo} alt="Logo" />
+   <img src={newlogonetlivy} alt="Logo" />
 </div>
 
                 <ul className="menuItems">
