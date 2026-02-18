@@ -201,7 +201,10 @@ font-size: 13px;
 
 <header>
     <div class="logo">
+         
+        <div class="logo">
          NETLIVY <span style="font-size:10px; background:#fff; padding:2px 5px; border-radius:4px; color:black;">radio</span>
+    </div>
     </div>
     <div class="header-actions">
         <div class="battery-stat" id="batteryLevel"><i class="fas fa-battery-full"></i> 100%</div>
@@ -212,7 +215,7 @@ font-size: 13px;
 <div class="greeting-area">
     <h1 class="greeting-title" id="greeting">Xayrli Kun 🌤</h1>
     <div class="live-stat">
-        <div class="red-dot"></div>Payshanba • 19-fevral • <span id="clock">12:00</span>
+    <div class="red-dot"></div>Seshanba • 17-fevral • <span id="clock">12:00</span>
     </div>
 </div>
 
@@ -224,12 +227,10 @@ font-size: 13px;
 <div class="cats">
     <div class="cat-chip active" onclick="filterCat('all', this)">All radios</div>
     <div class="cat-chip" onclick="filterCat('fav', this)">Likes</div>
-     <div class="cat-chip" onclick="filterCat('classic', this)">Classic</div>
-
+    <div class="cat-chip" onclick="filterCat('classic', this)">Classic</div>
     <div class="cat-chip" onclick="filterCat('pop', this)">Pop</div>
     <div class="cat-chip" onclick="filterCat('rock', this)">Rock</div>
     <div class="cat-chip" onclick="filterCat('jazz', this)">Jazz</div>
-    <div class="cat-chip" onclick="filterCat('news', this)">Charts</div>
 </div>
 
 <div class="grid" id="radioGrid"></div>
@@ -265,15 +266,13 @@ font-size: 13px;
 <script>
     // --- DATABASE ---
     const stations = [
-
+    
     { id: 1, name: "Vintage fm", genre: "pop", url: "https://vintageradio.ice.infomaniak.ch/vintageradio-high.mp3", img: "/accentfm.jpg" },
     { id: 2, name: "Radionet plus", genre: "rock", url: "https://radionetplus.ice.infomaniak.ch/radionetplus-high.mp3", img: "/radionetplusfm.png "},
-  { id: 3, name: "Temp fm", genre: "pop & classic", url: "https://tempradio-live.uz/live", img: "/temfmnewlogo.jpg" },
-  { id: 4, name: "Oriat dono", genre: "classic", url: "https://live.oriatdono.uz/dono/shoutcast", img: "/oriatdono.png" },
-
+    { id: 3, name: "Temp fm", genre: "pop & classic", url: "https://tempradio-live.uz/live", img: "/temfmnewlogo.jpg" },
+    { id: 4, name: "Oriat dono", genre: "classic", url: "https://live.oriatdono.uz/dono/shoutcast", img: "/oriatdono.png" },
     { id: 5, name: "Chill Lofi", genre: "jazz", url: "https://stream.streambase.ch/r32goldies/aac-64", img: "/chilll.jpg" },
-  { id: 6, name: "Grande", genre: "pop", url: "https://str1.tvcom.uz/RADIO-GRAND/shoutcast", img: "/grandradio.jpeg" },
-
+    { id: 6, name: "Grande", genre: "pop", url: "https://str1.tvcom.uz/RADIO-GRAND/shoutcast", img: "/grandradio.jpeg" },
     { id: 7, name: "Pop Energy", genre: "pop", url: "https://radioclubbing.stream.laut.fm/radioclubbing", img: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?w=300" },
     { id: 8, name: "Energy Mix", genre: "rock", url: "https://stream.radiotools.fr:8443/h2o-lac-hd.mp3", img: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=300" },
     { id: 9, name: "Energy Mix", genre: "jazz", url: "https://radio3.pro-fhi.net/radio/9025/stream.mp3", img: "/chilll.jpg" },
@@ -502,9 +501,9 @@ font-size: 13px;
     // 1. Dark/Light Mode
     function toggleTheme() {
         if(state.theme === 'dark') {
-            document.body.setAttribute('data-theme', 'light');
-            state.theme = 'light';
-            document.getElementById('themeSwitch').classList.remove('on');
+        document.body.setAttribute('data-theme', 'light');
+        state.theme = 'light';
+        document.getElementById('themeSwitch').classList.remove('on');
         } else {
             document.body.removeAttribute('data-theme');
             state.theme = 'dark';
@@ -516,25 +515,25 @@ font-size: 13px;
     // 2. Favorites System
     function toggleFav(id) {
         if(state.favorites.includes(id)) {
-            state.favorites = state.favorites.filter(x => x !== id);
-            showToast("Sevimlilardan olib tashlandi");
+        state.favorites = state.favorites.filter(x => x !== id);
+        showToast("Sevimlilardan olib tashlandi");
         } else {
-            state.favorites.push(id);
-            showToast("Sevimlilarga qo'shildi");
+        state.favorites.push(id);
+        showToast("Sevimlilarga qo'shildi");
         }
         localStorage.setItem('favs', JSON.stringify(state.favorites));
         renderRadios();
     }
 
     // 3. Greeting & Clock
-    function updateClock() {
+        function updateClock() {
         const now = new Date();
         document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
         // Random listener count simulation
         if(Math.random() > 0.7) {
-            let count = parseInt(document.getElementById('listenerCount').innerText.replace(',',''));
-            count += Math.floor(Math.random() * 10) - 5;
-            document.getElementById('listenerCount').innerText = count.toLocaleString();
+        let count = parseInt(document.getElementById('listenerCount').innerText.replace(',',''));
+        count += Math.floor(Math.random() * 10) - 5;
+        document.getElementById('listenerCount').innerText = count.toLocaleString();
         }
         setTimeout(updateClock, 1000);
     }
