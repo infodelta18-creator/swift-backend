@@ -539,12 +539,26 @@ font-size: 13px;
     }
 
     function setGreeting() {
-        const h = new Date().getHours();
-        const el = document.getElementById('greeting');
-        if(h < 11) el.innerText = "Xayrli Tong ☀️";
-        else if(h < 18) el.innerText = "Xayrli Kun 🌤";
-        else el.innerText = "Ramazon muborak 🌙";
+    const now = new Date();
+    const h = now.getHours();
+    const m = now.getMinutes();
+    const time = h * 60 + m;
+
+    const el = document.getElementById('greeting');
+
+    if (time >= 180 && time <= 540) { 
+        el.innerText = "Xayrli tong ☀️"; // 03:00–09:00
+    } 
+    else if (time >= 541 && time <= 960) { 
+        el.innerText = "Xayrli kun 🌤"; // 09:01–16:00
+    } 
+    else if (time >= 961 && time <= 1080) { 
+        el.innerText = "Xayrli oqshom 🌇"; // 16:01–18:00
+    } 
+    else { 
+        el.innerText = "Ramazon muborak 🌙"; // 18:01–02:59
     }
+}
 
     // 4. Voice Search
     function startVoice() {
