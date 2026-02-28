@@ -287,7 +287,13 @@ video {
 </a>
 </div>
 <div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
-
+ 
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cnbc-live.akamaized.net/cnbc/master.m3u8', '')">
+        <img src="src/cnbc.png">
+        <span>
+           CNBC Arabiya 
+        </span>
+    </div>
 
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://aegis-cloudfront-1.tubi.video/de29234d-1a53-4cf9-b6ba-9cf412b66d76/playlist.m3u8', '')">
         <img src="src/bloombergtv2.png">
@@ -341,10 +347,7 @@ video {
         <img src="src/fridayintertvlogo.jpg">
         <span>Friday</span>
     </div>
-    <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://live-news.asharq.com/asharq.m3u8','')">
-        <img src="src/ashaynewstv.jpg" alt="ADS 2">
-        <span>Asharq News</span>
-    </div>
+   
  <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/milliy.jpg">
         <span>Milliy TV</span>
@@ -484,7 +487,7 @@ video {
             if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
                 netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
       }
-        }, 200000); // Eslatib otamiz.Biz barcha kodlarimizga yashirin kalit soz yozib qoyganmiz,agar bu kodni kochirib,oz maqsadlaringizda noqonuniy ishlatsangiz biz sizni ustingizdan sudga murojaat qilamiz.kod ni nusxalamang,agar togri yolda ishlatmoqchi bolsangiz biz bilan boglaning.(brend malumotlaridan noqonuniy foydalanish-92million som jarima yoki 2 yilgacha ozodlikdan mahrum etish)
+        }, 100000); 
     }
 
     // Interaktiv elementlarga hodisa tinglovchilarini biriktirish
@@ -2543,7 +2546,7 @@ font-weight: 520;
             if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
                 netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
       }
-        }, 200000); // 5 soniyadan so'ng yashirish
+        }, 100000); // 5 soniyadan so'ng yashirish
     }
 
     // Interaktiv elementlarga hodisa tinglovchilarini biriktirish
@@ -2916,11 +2919,13 @@ border-radius:5.5px;
         </span>
     </div>
 
- <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cnbc-live.akamaized.net/cnbc/master.m3u8', '')">
-        <img src="src/cnbc.png">
-        <span>
-           CNBC Arabiya 
-        </span>
+ <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://live-news.asharq.com/asharq.m3u8','')">
+        <img src="src/ashaynewstv.jpg" alt="ADS 2">
+        <span>Asharq News</span>
+    </div>
+<div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/majid/majid_hls_nd/index.m3u8', ' ')">
+        <img src="src/dubaicartoon.jpg">
+        <span>Dubai Cartoon </span>
     </div>
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://streaming.televizor-24-tochka.ru/live/29.m3u8', '')">
         <img src="src/lugansk24tb.jpg">
@@ -2953,10 +2958,7 @@ border-radius:5.5px;
         <span>Bahrain Sports 2</span>
     </div>
 
-  <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/majid/majid_hls_nd/index.m3u8', ' ')">
-        <img src="src/dubaicartoon.jpg">
-        <span>Dubai Cartoon </span>
-    </div>
+  
  <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/emarat_tv/emarat_tv_hls_nd/index.m3u8', '')">
         <img src="src/AbuDhabiEmirates.jpg">
         <span>Abu Dhabi Emirates</span>
