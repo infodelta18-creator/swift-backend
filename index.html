@@ -725,12 +725,12 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
              }
 
         /* Video Stage Box */
-        .netlivy-video-playback-rendering-box { 
+         .netlivy-video-playback-rendering-box { 
             position: relative; 
             width: 100%; 
             border-radius: 5px; 
             overflow: hidden; 
-            bottom: 322px;
+           
             background: #000; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
         }
@@ -738,7 +738,7 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
         video { 
             width: 100%; 
             height: auto; 
-            aspect-ratio: 16/9; 
+            aspect-ratio: 16/9.67; 
             display: block; 
             cursor: pointer; 
 
@@ -776,11 +776,11 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(30px); 
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 13px;
+            
+            border-radius: 14px;
             display: flex; align-items: center; 
-            height: 46.77px; padding: 0 10px;
-            margin-top: -313.3px; gap: 5px;
+            height: 47px; padding: 0 10px;
+            
             transition: opacity 0.5s ease;
         }
 .netlivy-ultra-video-player-fullscreen-overlay,
