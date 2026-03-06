@@ -1,4 +1,5 @@
 
+<
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -143,7 +144,7 @@ border-radius: 5.5px;
             width: 100%; 
             border-radius: 5px; 
             overflow: hidden; 
-            bottom: 353px;
+            
             background: #000; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
         }
@@ -151,7 +152,7 @@ border-radius: 5.5px;
         video { 
             width: 100%; 
             height: auto; 
-            aspect-ratio: 16/9; 
+            aspect-ratio: 16/9.8; 
             display: block; 
             cursor: pointer; 
 
@@ -189,11 +190,11 @@ border-radius: 5.5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(30px); 
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            
             border-radius: 14px;
             display: flex; align-items: center; 
             height: 49px; padding: 0 10px;
-            margin-top: -345px; gap: 5px;
+            
             transition: opacity 0.5s ease;
         }
 .netlivy-ultra-video-player-fullscreen-overlay,
@@ -211,7 +212,7 @@ video {
 
         .netlivy-control-action-button:active { 
             transform: scale(0.85); opacity: 0.7; 
-          
+
         }
 
         .netlivy-visual-vertical-divider { 
@@ -229,7 +230,7 @@ video {
         /* Settings Floating Menu */
         .netlivy-player-settings-dropdown-menu {
             position: absolute;
-    bottom: 142px;
+    bottom: 53px;
     right: 5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(35px);
@@ -237,12 +238,12 @@ video {
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
-         
+
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
             display: flex; 
-          
+
         }
 
         .netlivy-settings-option-item-button {
@@ -282,12 +283,12 @@ video {
 </head>
 <body>
  <div class="netlivy-section-content-separator-label">Recommended for you</span>
- <a href="" class="title-arrow">
+ <a href="https://netlivys.vercel.app/channels" class="title-arrow">
   <i class="fa-solid fa-chevron-right"></i>
 </a>
 </div>
 <div class="netlivy-horizontal-channel-scroll-component" id="channelListContainer">
- 
+
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://cnbc-live.akamaized.net/cnbc/master.m3u8', '')">
         <img src="src/cnbc.png">
         <span>
@@ -298,12 +299,12 @@ video {
         <img src="src/original.jpeg">
         <span>AstrahanRu</span>
     </div>
- 
+
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://aegis-cloudfront-1.tubi.video/de29234d-1a53-4cf9-b6ba-9cf412b66d76/playlist.m3u8', '')">
         <img src="src/bloombergtv2.png">
         <span>Bloomberg</span>
     </div>
-  
+
 
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://admn-live-cdn-lb.starzplayarabia.com/out/v1/admn_tv_enc/majid/majid_hls_nd/index.m3u8', ' ')">
         <img src="src/dubaicartoon.jpg">
@@ -356,7 +357,7 @@ video {
         <img src="src/fridayintertvlogo.jpg">
         <span>Friday</span>
     </div>
- 
+
     <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1017/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/sevimli.jpg">
         <span>Sevimli</span>
@@ -366,7 +367,7 @@ video {
         <span>ZvezdaPlus</span>
     </div>
 
-  
+
 <div class="netlivy-individual-channel-card-element" onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1014/tracks-v1a1/playlist.m3u8', '')">
         <img src="src/milliy.jpg">
         <span>Milliy TV</span>
@@ -465,165 +466,7 @@ video {
     /**
      * Netlivy Professional Video Player Controller
      * Versiya: 2.0.0
-     */
-
-    const netlivyHlsEngine = new Hls();
-    const netlivyVideoDOMElement = document.getElementById('netlivyPrimaryVideoElement');
-    const netlivyOverlayWrapper = document.getElementById('netlivyGlobalPlayerOverlay');
-    const netlivyLoadingSpinner = document.getElementById('netlivyVideoPlaybackLoadingSpinner');
-    const netlivyPlayStatusIcon = document.getElementById('netlivyPlayPauseIconElement');
-    const netlivyVolumeStatusIcon = document.getElementById('netlivyVolumeLevelIcon');
-    const netlivyHeaderTitleLabel = document.getElementById('netlivyCurrentChannelDisplayTitle');
-    const netlivyControlsContainer = document.getElementById('netlivyGlobalPlayerControls');
-    const netlivySettingsMenuPanel = document.getElementById('netlivyVideoQualitySettingsMenu');
-
-    let netlivyUserInterfaceInactivityTimer;
-
-    /**
-     * Foydalanuvchi interfeysini ko'rsatish va vaqtinchalik yashirish taymerini boshqarish
-     */
-    function netlivyRefreshInterfaceVisibilityState() {
-        netlivyControlsContainer.classList.remove('netlivy-ui-element-hidden-state');
-        netlivyHeaderTitleLabel.classList.remove('netlivy-ui-element-hidden-state');
-
-        clearTimeout(netlivyUserInterfaceInactivityTimer);
-
-        netlivyUserInterfaceInactivityTimer = setTimeout(() => {
-            if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
-                netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
-      }
-        }, 30000); 
-    }
-
-    // Interaktiv elementlarga hodisa tinglovchilarini biriktirish
-    [netlivyVideoDOMElement, netlivyControlsContainer].forEach(element => {
-        element.addEventListener('mousemove', netlivyRefreshInterfaceVisibilityState);
-        element.addEventListener('touchstart', netlivyRefreshInterfaceVisibilityState);
-    });
-
-    /**
-     * Video oqimini boshlash va HLS obyektini sozlash
-     */
-    function netlivyExecuteVideoPlaybackInitialization(streamSourceUrl, channelDisplayName) {
-        netlivyHeaderTitleLabel.innerText = channelDisplayName;
-        netlivyOverlayWrapper.classList.add('active');
-        netlivyLoadingSpinner.classList.add('active');
-        netlivyRefreshInterfaceVisibilityState();
-
-        if (Hls.isSupported()) {
-            netlivyHlsEngine.loadSource(streamSourceUrl);
-            netlivyHlsEngine.attachMedia(netlivyVideoDOMElement);
-            netlivyHlsEngine.on(Hls.Events.MANIFEST_PARSED, (event, data) => {
-                netlivyPopulateQualitySelectionMenu(data.levels);
-                netlivyVideoDOMElement.play().catch(error => console.error("Playback failed:", error));
-                netlivyPlayStatusIcon.className = 'fa-solid fa-pause';
-            });
-        } else if (netlivyVideoDOMElement.canPlayType('application/vnd.apple.mpegurl')) {
-            netlivyVideoDOMElement.src = streamSourceUrl;
-            netlivyVideoDOMElement.play();
-        }
-    }
-
-    /**
-     * Fullscreen rejimini boshqarish
-     */
-    function netlivyToggleSystemFullscreenMode() {
-        const playerContainer = document.getElementById('netlivyGlobalPlayerOverlay');
-        const fullscreenIcon = document.getElementById('netlivyFullscreenToggleIcon');
-
-        if (!document.fullscreenElement) {
-            if (playerContainer.requestFullscreen) {
-                playerContainer.requestFullscreen();
-            } else if (playerContainer.webkitRequestFullscreen) {
-                playerContainer.webkitRequestFullscreen();
-            }
-
-            fullscreenIcon.className = 'fa-solid fa-compress';
-
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock('landscape').catch(() => {});
-            }
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            }
-            fullscreenIcon.className = 'fa-solid fa-expand';
-            if (screen.orientation && screen.orientation.unlock) {
-                screen.orientation.unlock();
-            }
-        }
-    }
-
-    /**
-     * Video sifatini tanlash menyusini yaratish
-     */
-    function netlivyPopulateQualitySelectionMenu(availableLevels) {
-        const qualityListContainer = document.getElementById('netlivyDynamicQualityListContainer');
-        qualityListContainer.innerHTML = '<button class="netlivy-settings-option-item-button" onclick="netlivyUpdateActiveVideoQuality(-1)">Auto</button>';
-
-        availableLevels.forEach((level, index) => {
-            const qualityButton = document.createElement('button');
-            qualityButton.className = 'netlivy-settings-option-item-button';
-            qualityButton.innerText = level.height + 'p';
-            qualityButton.onclick = () => netlivyUpdateActiveVideoQuality(index);
-            qualityListContainer.appendChild(qualityButton);
-        });
-    }
-
-    function netlivyUpdateActiveVideoQuality(levelIndex) {
-        netlivyHlsEngine.currentLevel = levelIndex;
-        netlivySettingsMenuPanel.style.display = 'none';
-    }
-
-    /**
-     * Play/Pause holatini almashtirish
-     */
-    function netlivyToggleVideoPlaybackState() {
-        if (netlivyVideoDOMElement.paused) { 
-            netlivyVideoDOMElement.play(); 
-            netlivyPlayStatusIcon.className = 'fa-solid fa-pause'; 
-        } else { 
-            netlivyVideoDOMElement.pause(); 
-            netlivyPlayStatusIcon.className = 'fa-solid fa-play'; 
-        }
-    }
-
-    function netlivyAdjustVideoCurrentTimePosition(secondsOffset) { 
-        netlivyVideoDOMElement.currentTime += secondsOffset; 
-    }
-
-    function netlivyToggleVideoAudioMuteState() {
-        netlivyVideoDOMElement.muted = !netlivyVideoDOMElement.muted;
-        netlivyVolumeStatusIcon.className = netlivyVideoDOMElement.muted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-low';
-    }
-
-    function netlivyToggleSettingsDropdownVisibility() {
-        const isVisible = netlivySettingsMenuPanel.style.display === 'flex';
-        netlivySettingsMenuPanel.style.display = isVisible ? 'none' : 'flex';
-    }
-
-    /**
-     * Playback sessiyasini to'xtatish va resurslarni bo'shatish
-     */
-    function netlivyTerminateActiveVideoSession() {
-        netlivyOverlayWrapper.classList.remove('active');
-        netlivyVideoDOMElement.pause();
-        netlivyHlsEngine.detachMedia();
-        if (document.fullscreenElement) {
-            document.exitFullscreen().catch(() => {});
-        }
-    }
-
-    // Video holati hodisalarini kuzatish
-    netlivyVideoDOMElement.addEventListener('waiting', () => netlivyLoadingSpinner.classList.add('active'));
-    netlivyVideoDOMElement.addEventListener('playing', () => netlivyLoadingSpinner.classList.remove('active'));
-netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
-    e.preventDefault();
-}, { passive: false });
-</script>
-
-</body>
-</html>
+    
                              <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -713,7 +556,7 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
         }
 
         .netlivy-video-player-central-container { 
-            position: relative; width: 96%; max-width: 800px; 
+            position: relative; width: 98%; max-width: 800px; 
             display: flex; flex-direction: column; 
         }
 
@@ -728,9 +571,9 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
          .netlivy-video-playback-rendering-box { 
             position: relative; 
             width: 100%; 
-            border-radius: 5px; 
+            border-radius: 8px; 
             overflow: hidden; 
-           
+
             background: #000; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
         }
@@ -738,7 +581,7 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
         video { 
             width: 100%; 
             height: auto; 
-            aspect-ratio: 16/9.67; 
+            aspect-ratio: 16/9.74; 
             display: block; 
             cursor: pointer; 
 
@@ -776,11 +619,11 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(30px); 
             -webkit-backdrop-filter: blur(30px);
-            
+
             border-radius: 14px;
             display: flex; align-items: center; 
             height: 47px; padding: 0 10px;
-            
+
             transition: opacity 0.5s ease;
         }
 .netlivy-ultra-video-player-fullscreen-overlay,
@@ -815,7 +658,7 @@ video {
         /* Settings Floating Menu */
         .netlivy-player-settings-dropdown-menu {
             position: absolute;
-    bottom: 142px;
+    
     right: 5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(35px);
@@ -823,12 +666,12 @@ video {
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
-         
+
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
             display: flex; 
-          
+
         }
 
         .netlivy-settings-option-item-button {
@@ -1030,7 +873,7 @@ video {
 
 }
     .video-popup.active{display:flex}
-.video-box{width:97%;margin-bottom: 420px;max-width:900px;aspect-ratio:24/14;background:#000; z-index: 999999;position:relative;border-radius:4px;overflow:visible}
+.video-box{width:97%;max-width:900px;aspect-ratio:16/9.8;background:#000; z-index: 999999;position:relative;border-radius:8px;overflow:visible}
 .video-box iframe,.video-box video{width:100%;height:100%}
 
 
@@ -1328,7 +1171,7 @@ font-weight: 525;
 
     <div class="img-container">
         <img style="width:100%; height:100%; object-fit:cover; border-radius:8px;" src="src/1tv.jpg">
-        
+
     </div>
 
     <div class="title">Канал 1</div>
@@ -1344,7 +1187,7 @@ font-weight: 525;
 
     <div class="title">Россия 24</div>
 </div>
- 
+
 
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://cdn-evacoder-tv.facecast.io/evacoder_hls_hi/CkxfR1xNUAJwTgtXTBZTAJli/index.m3u8','')">
@@ -1699,7 +1542,7 @@ font-weight: 525;
 
     <div class="title">FREEDOM</div>
 </div>
-     
+
        <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://starmenajo.com/hls/yemenshabab/index.m3u8','')">
 
@@ -1730,7 +1573,7 @@ font-weight: 525;
 
     <div class="title">Abu Dhabi Sports</div>
 </div>
-    
+
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://mediaserver.abnvideos.com/streams/abnsat.m3u8','')">
 
@@ -1910,7 +1753,7 @@ font-weight: 525;
 
     <div class="title">Al Arabia Bussines</div>
 </div>
-  
+
          <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://live.duhnet.tv/S2/HLS_LIVE/dreamturknp/playlist.m3u8','')">
 
@@ -2081,7 +1924,7 @@ font-weight: 525;
 
     <div class="title">BBC Travel</div>
 </div>
-   
+
     <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://ngtrk.dc.beltelecom.by/ngtrk/smil:belarus5.smil/playlist.m3u8','')">
 
@@ -2092,7 +1935,7 @@ font-weight: 525;
 
     <div class="title">Belarus-5</div>
 </div>
-    
+
 
 
       </div>
@@ -2106,7 +1949,7 @@ font-weight: 525;
 
 </div>
     <div class="scroll-row">
-          
+
     <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://rtatv.akamaized.net/Content/HLS/Live/channel(RTA1)/index.m3u8','')">
 
@@ -2127,7 +1970,7 @@ font-weight: 525;
 
     <div class="title">RTA News</div>
 </div>
- 
+
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('http://212.2.225.30:1935/live/site.stream/playlist.m3u8','')">
 
@@ -2138,7 +1981,7 @@ font-weight: 525;
 
     <div class="title">1 TV</div>
 </div>
-     
+
 <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://rtatv.akamaized.net/Content/HLS/Live/channel(RTA3)/index.m3u8','')">
 
@@ -2159,7 +2002,7 @@ font-weight: 525;
 
     <div class="title">BBC Earth</div>
 </div>
-   
+
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://stream8.cinerama.uz/1016/tracks-v1a1/mono.m3u8','')">
 
@@ -2263,7 +2106,7 @@ font-weight: 525;
 
     <div class="title">Qazaqstan</div>
 </div>
-      
+
 
 
     </div>
@@ -2317,7 +2160,7 @@ font-weight: 525;
     <div class="title">FUEL TV 2</div>
 </div>
 
-    
+
       <div class="channel-link"
      onclick="netlivyExecuteVideoPlaybackInitialization('https://5c7b683162943.streamlock.net/live/ngrp:bahrainsportstwo_all/playlist.m3u8','')">
 
@@ -2533,7 +2376,7 @@ font-weight: 525;
             if (!netlivyVideoDOMElement.paused && netlivySettingsMenuPanel.style.display !== 'flex') {
                 netlivyControlsContainer.classList.add('netlivy-ui-element-hidden-state');
       }
-        }, 30000); // 5 soniyadan so'ng yashirish
+        }, 20000); // 5 soniyadan so'ng yashirish
     }
 
     // Interaktiv elementlarga hodisa tinglovchilarini biriktirish
