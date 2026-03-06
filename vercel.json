@@ -3,6 +3,10 @@
     {
       "source": "/radio",
       "destination": "/radio.html"
+    },
+    {
+      "source": "/channels",
+      "destination": "/channels.html"
     }
   ]
 }
