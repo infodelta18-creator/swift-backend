@@ -2666,16 +2666,53 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
 </body>
 </html>
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="./src/assets/info.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Netlivy - Онлайн ТВ, медиатека и телепередачи</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/svg+xml" href="./src/assets/info.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O'ZBEKISTON RESPUBLIKASINING KONSTITUSIYASIGA BINOAN 92MILLION SOM YOKI QAMALISHNI HOHLAMASANGIZ!KODNI NUSXALAMANG!NUSXALAB O'ZGARTIRISHNI FOYDASI YO'Q!BIZ KODNI ICHIGA E'TIBOR QILMAYDIGAN DARAJADA KALIT SO'Z YOZGANMIZ!AGAR KODNI NUSXALAB OLSANGIZ VA MAQSADLARINGIZDA FOYDALANSANGIZ BIZ BUNGA INDAMAY TURMAYMIZ!!!!(TEGISHLI QONUN BILAN JAZOLANASIZ!!!!)•Netlivy®2026</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Netlivy - Professional Media Streamer</title>
+    <title>Netlivy</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <style>
+
+     <style>
         :root {
             --netlivy-primary-brand-blue: #0356d0;
             --netlivy-background-phantom-black: #0a0a0b;
@@ -2730,8 +2767,8 @@ netlivyOverlayWrapper.addEventListener('touchmove', function(e) {
         .netlivy-individual-channel-card-element img { 
             width: 50px; height: 50px; 
             object-fit: contain; 
-border-radius:5.5px;
             margin-bottom: 10px; 
+border-radius: 5.5px;
         }
 
         .netlivy-individual-channel-card-element span { 
@@ -2755,29 +2792,16 @@ border-radius:5.5px;
         }
 
         .netlivy-video-player-central-container { 
-            position: relative; width: 95%; max-width: 800px; 
+            position: relative; width: 96%; max-width: 800px; 
             display: flex; flex-direction: column; 
         }
 
         /* Top Info Header */
         .netlivy-player-header-information { 
             font-weight: 600; 
-            font-size: 18px; 
-            color: #fff;
-            padding: 10px 5px; 
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            width: 100%; 
-            position: absolute; 
-            top: -350px;
-            left: 0;
-            z-index:99999;
-            display: relative;
-            justify-content: space-between;
-            align-items: center;
-            box-sizing: border-box;
-            transition: opacity 0.5s ease;
-         
-        }
+            font-size: 16px; 
+            color:#000;
+             }
 
         /* Video Stage Box */
         .netlivy-video-playback-rendering-box { 
@@ -2785,7 +2809,7 @@ border-radius:5.5px;
             width: 100%; 
             border-radius: 5px; 
             overflow: hidden; 
-            top: -317px;
+           
             background: #000; 
             box-shadow: 0 25px 60px rgba(0,0,0,0.9);
         }
@@ -2793,11 +2817,11 @@ border-radius:5.5px;
         video { 
             width: 100%; 
             height: auto; 
-            aspect-ratio: 16/9; 
+            aspect-ratio: 16/9.67; 
             display: block; 
             cursor: pointer; 
-        
-       
+
+
         }
 
         /* Loading Spinner */
@@ -2810,9 +2834,14 @@ border-radius:5.5px;
         .netlivy-video-buffering-loader-wrapper.active { 
             display: flex; 
         }
-
-        .netlivy-loading-spinner-element { 
-            width: 45px; height: 45px; 
+/* Body scroll lock holati */
+.netlivy-scroll-lock {
+    overflow: hidden !important;
+    height: 100vh;
+    touch-action: none;
+}
+      .netlivy-loading-spinner-element { 
+            width: 46px; height: 46px; 
             border: 0px solid rgba(255,255,255,0.1);
             border-top: 2px solid #fff; 
             border-radius: 50%;
@@ -2826,23 +2855,29 @@ border-radius:5.5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(30px); 
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.1); 
+            
             border-radius: 14px;
             display: flex; align-items: center; 
-            height: 49px; padding: 0 10px;
-            margin-top: -307.5px; gap: 5px;
+            height: 47px; padding: 0 10px;
+            
             transition: opacity 0.5s ease;
         }
-
+.netlivy-ultra-video-player-fullscreen-overlay,
+.netlivy-video-playback-rendering-box,
+video {
+    touch-action: none;
+    overscroll-behavior: contain;
+}
         .netlivy-control-action-button {
-            background: none; border: none; color: #fff;
+            background: none; border: none; color: #fff; 
             flex: 1; height: 100%; cursor: pointer; display: flex;
             align-items: center; justify-content: center; font-size: 18px;
-            transition: 0.2s;
+            transition: 0.4s;
         }
 
         .netlivy-control-action-button:active { 
             transform: scale(0.85); opacity: 0.7; 
+
         }
 
         .netlivy-visual-vertical-divider { 
@@ -2850,7 +2885,6 @@ border-radius:5.5px;
             background: rgba(255, 255, 255, 0.1); 
         }
 
-     
         /* Visibility States */
         .netlivy-ui-element-hidden-state { 
             opacity: 0 !important; 
@@ -2861,7 +2895,7 @@ border-radius:5.5px;
         /* Settings Floating Menu */
         .netlivy-player-settings-dropdown-menu {
             position: absolute;
-    bottom: 107px;
+    bottom: 142px;
     right: 5px;
             background: var(--netlivy-glass-overlay-background); 
             backdrop-filter: blur(35px);
@@ -2869,12 +2903,12 @@ border-radius:5.5px;
             display: none; flex-direction: column; 
             border: 1px solid rgba(255,255,255,0.1);
             z-index: 100;
-         
+
         }
 
         .netlivy-player-settings-dropdown-menu.active { 
             display: flex; 
-          
+
         }
 
         .netlivy-settings-option-item-button {
@@ -2891,8 +2925,26 @@ border-radius:5.5px;
 
         }
 
+
+.title-arrow {
+   position: relative;
+  font-size: 13px;
+  padding-right: 50px;
+  font-weight: 700;
+  margin-left: 1.5px;
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+  z-index:1;
+}
+  .title-arrow,
+.title-arrow:visited,
+.title-arrow:hover,
+.title-arrow:active {
+  color: #fff;
+}
+
+
     </style>
-  
 </head>
 <body>
 
