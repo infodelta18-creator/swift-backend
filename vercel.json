@@ -7,6 +7,10 @@
     {
       "source": "/channels",
       "destination": "/channels.html"
+    },
+   {
+      "source": "/status",
+      "destination": "/status.html"
     }
   ]
 }
